@@ -178,7 +178,30 @@ td.ck input { width: 20px; height: 20px; accent-color: var(--accent); }
 .setlist { display: flex; gap: 6px; flex-wrap: wrap; font-family: var(--fd); font-size: 17px; }
 .setlist span { background: var(--surface2); border: 1px solid var(--line); border-radius: 7px; padding: 1px 8px; font-variant-numeric: tabular-nums; }
 
-/* formazioni */
+/* formazioni: campo con le zone */
+.lcourt { margin-top: 4px; order: 0 !important; grid-column: auto !important; }
+.fgrid.lsel { flex: 1 1 280px; max-width: 520px; min-width: 0; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+.zone { border: 2px solid var(--courtLine); background: var(--court); margin: -1px; min-width: 0; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; color: #fff; font: inherit; padding: 2px; }
+.zone:hover { filter: brightness(1.06); }
+.zone .p { position: absolute; top: 3px; left: 6px; font-family: var(--fd); font-size: 13px; font-weight: 700; color: rgba(255,255,255,.85); }
+.zone .n { font-family: var(--fd); font-size: clamp(26px, 4.2vw, 46px); font-weight: 800; line-height: 1; text-shadow: 0 1px 0 rgba(0,0,0,.25); }
+.zone .nmx { font-size: 11px; opacity: .9; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.zone .cap { position: absolute; top: 3px; right: 6px; font-family: var(--fd); font-weight: 800; font-size: 13px; border: 1.5px solid #fff; border-radius: 4px; padding: 0 3px; line-height: 1.2; }
+.zone .ball { position: absolute; bottom: 5px; right: 6px; }
+.zone .plus { font-family: var(--fd); font-size: 34px; font-weight: 700; opacity: .75; }
+.zone.empty { background: color-mix(in srgb, var(--court) 70%, var(--court2)); border-style: dashed; }
+.zone.frL { box-shadow: inset 5px 0 0 var(--courtLine); }
+.zone.frR { box-shadow: inset -5px 0 0 var(--courtLine); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chip { display: inline-flex; align-items: baseline; gap: 6px; border: 1.5px solid var(--line); background: var(--surface2); border-radius: 99px; padding: 5px 12px; cursor: pointer; font: inherit; color: var(--ink); min-height: 38px; align-items: center; }
+.chip b { font-family: var(--fd); font-size: 20px; line-height: 1; }
+.chip span { font-size: 12px; color: var(--muted); }
+.chip.A { border-color: color-mix(in srgb, var(--tA) 55%, var(--line)); }
+.chip.B { border-color: color-mix(in srgb, var(--tB) 55%, var(--line)); }
+.chip:hover:not(:disabled) { background: var(--warnBg); }
+.chip:disabled { opacity: .45; cursor: default; }
+.chip.lib { border-style: dashed; cursor: default; opacity: .7; }
+/* formazioni (vecchia griglia) */
 .lgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: var(--court2); padding: 10px; border-radius: 10px; }
 .lgrid .net { grid-column: 1 / -1; height: 6px; background: var(--net); border-radius: 3px; }
 .lgrid label { background: var(--court); border-radius: 8px; padding: 6px; display: flex; flex-direction: column; gap: 2px; color: #fff; font-family: var(--fd); font-weight: 700; font-size: 13px; }
@@ -730,7 +753,7 @@ if (typeof module !== 'undefined') module.exports = { PRESETS, SANC, newMatch, s
 <script>
 // ================= INTERFACCIA =================
 const PWA = !!window.__PWA__;
-const APP_VER = '1.4 · 09/11/2026';
+const APP_VER = '1.5 · 09/11/2026';
 const $app = document.getElementById('app');
 const H = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const LS = {
@@ -930,10 +953,21 @@ function vToss(errs) {
     <div class="row"><button class="btn pri" data-a="tossOk">Conferma sorteggio</button></div></div>`;
 }
 
-function benchOptions(t, sel, si) {
-  const pri = priorInfo(M, si);
-  return '<option value=""></option>' + M.teams[t].players.filter(p => !p.lib && !pri.disq[t].includes(String(p.n)))
-    .sort((a, b) => a.n - b.n).map(p => `<option value="${H(p.n)}" ${String(sel) === String(p.n) ? 'selected' : ''}>${H(p.n)}</option>`).join('');
+// giocatori disponibili per la formazione (esclusi Libero, squalificati e chi è già in un'altra zona)
+function lineupPool(t, si, exceptK) {
+  const pri = priorInfo(M, si), d = M.draft;
+  const used = d[t].filter((n, k) => k !== exceptK && n !== '' && n != null).map(String);
+  return M.teams[t].players.filter(p => !p.lib && !pri.disq[t].includes(String(p.n)) && !used.includes(String(p.n))).sort((a, b) => a.n - b.n);
+}
+function zoneHTML(t, k, d, side) {
+  const n = d[t][k], p = n !== '' && n != null ? pl(M, t, n) : null;
+  const front = [1, 2, 3].includes(k);
+  const serve = k === 0 && d.firstServe === t;
+  const sx = p && M.cfg.mixed && p.sex ? ` · ${p.sex}` : '';
+  return `<button type="button" class="zone ${p ? '' : 'empty'} ${front ? 'fr' + side : ''}" data-a="zone" data-t="${t}" data-k="${k}" aria-label="${H(tName(t))}, zona ${POS[k]}${p ? ', numero ' + H(n) : ', vuota'}">
+    <span class="p">${POS[k]}</span>${p && p.cap ? '<span class="cap">K</span>' : ''}
+    ${p ? `<span class="n">${H(n)}</span><span class="nmx">${H((p.name || '').split(' ')[0])}${sx}</span>` : '<span class="plus">+</span>'}
+    ${serve ? '<span class="ball" title="Primo servizio"></span>' : ''}</button>`;
 }
 function vLineup(r) {
   const si = M.sets.length;
@@ -943,24 +977,36 @@ function vLineup(r) {
     M.draft = { si, A: ['', '', '', '', '', ''], B: ['', '', '', '', '', ''], firstServe: def.firstServe, left: def.left, golden: false };
     if (prev) { M.draft.A = prev.lineup.A.slice(); M.draft.B = prev.lineup.B.slice(); }
   }
-  const d = M.draft;
-  const golden = M.cfg.golden && r.over;
-  const tb = def.needToss;
-  const grid = t => {
-    const cell = i => `<label>${POS[i]}<select data-f="draft.${t}.${i}" aria-label="Posizione ${POS[i]}">${benchOptions(t, d[t][i], si)}</select></label>`;
-    return `<div class="lgrid">${cell(3)}${cell(2)}${cell(1)}<div class="net"></div>${cell(4)}${cell(5)}${cell(0)}</div>`;
-  };
-  const errs = t => lineupErrors(M, t, d[t].map(String).filter(x => x !== '').length === 6 ? d[t] : d[t], si);
+  const d = M.draft, tb = def.needToss;
+  const L = d.left, R = OPP(L);
+  // stessa disposizione del campo in gara: per ogni riga, seconda e prima linea della squadra a sinistra, rete, prima e seconda linea di quella a destra
+  const colsL = [[4, 5, 0], [3, 2, 1]], colsR = [[1, 2, 3], [0, 5, 4]];
+  let cells = '';
+  for (let row = 0; row < 3; row++) {
+    cells += zoneHTML(L, colsL[0][row], d, 'L') + zoneHTML(L, colsL[1][row], d, 'L');
+    if (row === 0) cells += '<div class="netv"></div>';
+    cells += zoneHTML(R, colsR[0][row], d, 'R') + zoneHTML(R, colsR[1][row], d, 'R');
+  }
   const opt = v => ['A', 'B'].map(t => `<option value="${t}" ${v === t ? 'selected' : ''}>${H(tName(t))}</option>`).join('');
   const last = r.cur;
   const head = last && last.over ? `<div class="card row" style="justify-content:space-between"><div><div class="eyebrow">Set ${si} concluso</div><div class="big" style="font-family:var(--fd);font-size:28px;font-weight:800">${H(tName('A'))} ${last.score.A} – ${last.score.B} ${H(tName('B'))}</div><div class="small muted">Set: ${r.won.A}–${r.won.B}</div></div><button class="btn" data-a="undo">↶ Annulla ultimo punto</button></div>` : '';
-  const team = t => { const e = errs(t); return `<div class="card stack" style="border-top:5px solid var(--t${t})"><div class="row" style="justify-content:space-between"><b>${H(tName(t))}</b><span class="row"><button class="btn sm" data-a="rotDraft" data-t="${t}" title="Ruota la formazione">Ruota ↻</button>${si > 0 ? `<button class="btn sm" data-a="prevDraft" data-t="${t}">Come set ${si}</button>` : ''}</span></div>
-    <p class="small muted" style="margin:0">Rete in alto. In zona I il primo battitore se la squadra serve.</p>${grid(t)}${e.length ? `<div class="msg ${e[0] === 'Completa le 6 posizioni.' ? 'warn' : 'bad'}">${e.map(H).join('<br>')}</div>` : '<div class="msg ok">Formazione regolare.</div>'}</div>`; };
+  const bench = t => {
+    const e = lineupErrors(M, t, d[t], si), pool = lineupPool(t, si, -1), full = d[t].every(x => x !== '' && x != null);
+    const libs = M.teams[t].players.filter(p => p.lib);
+    return `<div class="card stack" style="border-top:5px solid var(--t${t})">
+      <div class="row" style="justify-content:space-between"><b>${H(tName(t))}</b><span class="row"><button class="btn sm" data-a="rotDraft" data-t="${t}" title="Ruota la formazione di una posizione">Ruota ↻</button>${si > 0 ? `<button class="btn sm" data-a="prevDraft" data-t="${t}">Come set ${si}</button>` : ''}<button class="btn sm" data-a="clearDraft" data-t="${t}">Svuota</button></span></div>
+      <div><div class="eyebrow">Panchina${full ? '' : ' · tocca un giocatore per metterlo nella prima zona libera (I → VI)'}</div>
+      <div class="chips">${pool.map(p => `<button type="button" class="chip ${t}" data-a="benchPick" data-t="${t}" data-n="${H(p.n)}" ${full ? 'disabled' : ''}><b>${H(p.n)}</b><span>${H((p.name || '').split(' ')[0])}${M.cfg.mixed && p.sex ? ' · ' + p.sex : ''}</span></button>`).join('') || '<span class="small muted">Tutti in campo.</span>'}
+      ${libs.map(p => `<span class="chip lib" title="Il Libero non entra nella formazione iniziale"><b>${H(p.n)}</b><span>Libero</span></span>`).join('')}</div></div>
+      ${e.length ? `<div class="msg ${e[0] === 'Completa le 6 posizioni.' ? 'warn' : 'bad'}">${e.map(H).join('<br>')}</div>` : '<div class="msg ok">Formazione regolare.</div>'}</div>`;
+  };
   return `<div class="stack">${head}
-    <div class="card stack"><div class="eyebrow">${tb ? 'Tie-break · nuovo sorteggio' : 'Formazioni'}</div><h2>Set ${si + 1}${tb ? ' (tie-break a ' + M.cfg.tbPts + ')' : ' a ' + M.cfg.pts}</h2>
-      <div class="fgrid"><label class="f">Al servizio<select data-f="draft.firstServe">${opt(d.firstServe)}</select></label><label class="f">A sinistra del segnapunti<select data-f="draft.left">${opt(d.left)}</select></label></div></div>
-    <div class="grid2">${team('A')}${team('B')}</div>
-    <div class="row"><button class="btn pri" data-a="startSet">Inizia set ${si + 1}</button>${si > 0 && !(last && last.over) ? '' : ''}${si === 0 ? `<button class="btn" data-a="redoToss">Rifai sorteggio</button>` : ''}</div></div>`;
+    <div class="card stack"><div class="row" style="justify-content:space-between;align-items:flex-end"><div><div class="eyebrow">${tb ? 'Tie-break · nuovo sorteggio' : 'Formazioni'}</div><h2>Set ${si + 1}${tb ? ' (tie-break a ' + M.cfg.tbPts + ')' : ' a ' + M.cfg.pts}</h2></div>
+      <div class="fgrid lsel"><label class="f">Al servizio<select data-f="draft.firstServe">${opt(d.firstServe)}</select></label><label class="f">A sinistra del segnapunti<select data-f="draft.left">${opt(d.left)}</select></label></div></div>
+      <div class="court lcourt"><span class="lab L">${H(tName(L))}</span><span class="lab R">${H(tName(R))}</span>${cells}</div>
+      <p class="small muted" style="margin:0">Campo visto dal tavolo del segnapunti. Le zone accanto alla rete sono la prima linea (II, III, IV), la linea bianca spessa è la linea dei 3 metri. La zona I è il battitore. Tocca una zona per scegliere o cambiare il giocatore.</p></div>
+    <div class="grid2">${bench(L)}${bench(R)}</div>
+    <div class="row"><button class="btn pri" data-a="startSet">Inizia set ${si + 1}</button>${si === 0 ? `<button class="btn" data-a="redoToss">Rifai sorteggio</button>` : ''}</div></div>`;
 }
 
 function slotHTML(t, i, st) {
@@ -1334,6 +1380,19 @@ const ACT = {
     save(); render();
   },
   redoToss() { M.toss = null; M.draft = null; save(); render(); },
+  zone(d) {
+    const t = d.t, k = +d.k, si = M.sets.length, cur = M.draft[t][k];
+    const pool = lineupPool(t, si, k);
+    modal(`<div class="eyebrow">${H(tName(t))}</div><h2>Zona ${POS[k]}${[1, 2, 3].includes(k) ? ' · prima linea' : ' · seconda linea'}${k === 0 ? ' · battitore' : ''}</h2>
+      <p class="small muted" style="margin:0">Sono elencati solo i giocatori non ancora schierati (Libero esclusi).</p>
+      <div class="picks">${pool.map(p => `<button class="pick ${String(cur) === String(p.n) ? 'on' : ''}" data-n="${H(p.n)}"><b>${H(p.n)}</b><span>${H(p.name)}</span></button>`).join('') || '<span class="muted">Nessun giocatore disponibile.</span>'}</div>
+      <div class="foot">${cur !== '' && cur != null ? '<button class="btn danger" id="zc">Togli dalla zona</button>' : ''}<button class="btn" data-a="close">Chiudi</button></div>`, el => {
+      el.querySelectorAll('[data-n]').forEach(b => b.onclick = () => { M.draft[t][k] = b.dataset.n; save(); closeModal(); render(); });
+      const zc = el.querySelector('#zc'); if (zc) zc.onclick = () => { M.draft[t][k] = ''; save(); closeModal(); render(); };
+    });
+  },
+  benchPick(d) { const a = M.draft[d.t]; const k = a.findIndex(x => x === '' || x == null); if (k < 0) { toast('Formazione completa: tocca una zona per cambiare giocatore.'); return; } a[k] = String(d.n); save(); render(); },
+  clearDraft(d) { M.draft[d.t] = ['', '', '', '', '', '']; save(); render(); },
   rotDraft(d) { const a = M.draft[d.t]; M.draft[d.t] = [a[1], a[2], a[3], a[4], a[5], a[0]]; save(); render(); },
   prevDraft(d) { const p = M.sets[M.sets.length - 1]; if (p) { M.draft[d.t] = p.lineup[d.t].slice(); save(); render(); } },
   startSet() {
