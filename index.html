@@ -77,6 +77,17 @@ h1, h2, h3 { font-family: var(--fd); font-weight: 700; letter-spacing: .01em; te
 button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 label.f { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); font-weight: 600; min-width: 0; }
 label.f input, label.f select, label.f textarea, .in { border: 1px solid var(--line); background: var(--surface2); border-radius: 8px; padding: 9px 10px; color: var(--ink); font-size: 16px; font-weight: 500; width: 100%; min-width: 0; }
+/* campi uniformi su iPad/iPhone: Safari dà a data, ora e menu una larghezza minima e un'altezza proprie */
+label.f input, label.f select { display: block; height: 46px; line-height: 1.2; max-width: 100%; -webkit-appearance: none; appearance: none; margin: 0; }
+label.f input[type="date"], label.f input[type="time"] { min-width: 0; width: 100%; text-align: left; padding-block: 0; }
+label.f input[type="date"]::-webkit-date-and-time-value, label.f input[type="time"]::-webkit-date-and-time-value { text-align: left; margin: 0; }
+label.f input::-webkit-calendar-picker-indicator { opacity: .6; }
+label.f select { padding-right: 32px; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 17px) 52%, calc(100% - 12px) 52%; background-size: 5px 5px; background-repeat: no-repeat; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+label.f > * { min-width: 0; }
+.fgrid > * { min-width: 0; }
+.fgrid > .w2 { grid-column: span 2; }
+@media (max-width: 420px) { .fgrid > .w2 { grid-column: auto; } }
 textarea { min-height: 80px; resize: vertical; }
 .fgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 12px; }
 .chk { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--ink); }
@@ -780,7 +791,7 @@ if (typeof module !== 'undefined') module.exports = { PRESETS, SANC, newMatch, s
 <script>
 // ================= INTERFACCIA =================
 const PWA = !!window.__PWA__;
-const APP_VER = '1.8 · 09/11/2026';
+const APP_VER = '1.9 · 09/11/2026';
 const $app = document.getElementById('app');
 const H = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const LS = {
@@ -883,8 +894,8 @@ function presetOptions(sel) {
   Object.entries(PRESETS).forEach(([k, p]) => { (g[p.grp] = g[p.grp] || []).push(`<option value="${k}" ${k === sel ? 'selected' : ''}>${H(p.label)}</option>`); });
   return Object.entries(g).map(([gr, o]) => `<optgroup label="${H(gr)}">${o.join('')}</optgroup>`).join('');
 }
-function fld(label, path, val, type, extra) {
-  return `<label class="f">${label}<input type="${type || 'text'}" data-f="${path}" value="${H(val)}" ${extra || ''}></label>`;
+function fld(label, path, val, type, extra, cls) {
+  return `<label class="f ${cls || ''}">${label}<input type="${type || 'text'}" data-f="${path}" value="${H(val)}" ${extra || ''}></label>`;
 }
 function vGara() {
   const i = M.info, c = M.cfg, locked = M.sets.length > 0;
@@ -893,7 +904,7 @@ function vGara() {
   return `<div class="stack">
   <div class="card stack"><div class="eyebrow">Dati gara</div>
     <div class="fgrid">
-      ${fld('Campionato', 'info.camp', i.camp)}${fld('Gara n.', 'info.num', i.num)}${fld('Data', 'info.date', i.date, 'date')}${fld('Ora', 'info.time', i.time, 'time')}
+      ${fld('Campionato', 'info.camp', i.camp, 'text', '', 'w2')}${fld('Gara n.', 'info.num', i.num)}${fld('Data', 'info.date', i.date, 'date')}${fld('Ora', 'info.time', i.time, 'time')}
       ${fld('Palestra', 'info.place', i.place)}${fld('Città', 'info.city', i.city)}${fld('Girone', 'info.girone', i.girone)}${fld('Giornata', 'info.giornata', i.giornata)}
       ${fld('1° arbitro', 'info.ref1', i.ref1)}${fld('2° arbitro', 'info.ref2', i.ref2)}${fld('Segnapunti / refertista', 'info.scorer', i.scorer)}
     </div></div>
@@ -905,7 +916,7 @@ function vGara() {
       ${num('Numero set', 'sets', 'min="1" max="7"')}${num('Punti per set', 'pts')}${num('Punti tie-break', 'tbPts')}
       ${num('Sostituzioni per set', 'subs')}${num('Time-out per set', 'tos')}${num('Durata time-out (s)', 'toSec')}${num('Max atleti a referto', 'maxRoster')}
       ${num('Max Libero', 'maxLib')}${num('Nati dal (limite età)', 'minYear')}${num('Fuoriquota: nati nel', 'fqYear')}${num('Cambio campo tie-break a', 'tbSwitchAt')}
-      <label class="f">Misto<select data-f="cfg.mixed" ${locked ? 'disabled' : ''}><option value="">No</option><option value="42" ${c.mixed === '42' ? 'selected' : ''}>4+2 (min. 2 donne)</option><option value="33" ${c.mixed === '33' ? 'selected' : ''}>3+3 (1–3 uomini)</option><option value="2F" ${c.mixed === '2F' ? 'selected' : ''}>2 donne sempre in campo</option></select></label>
+      <label class="f">Misto<select data-f="cfg.mixed" ${locked ? 'disabled' : ''}><option value="">No</option><option value="42" ${c.mixed === '42' ? 'selected' : ''}>4+2</option><option value="33" ${c.mixed === '33' ? 'selected' : ''}>3+3</option><option value="2F" ${c.mixed === '2F' ? 'selected' : ''}>2 donne sempre</option></select></label>
       <label class="f">Altezza rete (m)<input data-f="cfg.rete" value="${H(c.rete)}"></label>
     </div>
     <div class="row">${ck('Ultimo set è tie-break', 'lastTb')}${ck('Libero ammesso', 'libero')}${ck('Cambio campo tra i set', 'sideChange')}${ck('Golden set (spareggio a 15)', 'golden')}${ck('Libero fuoriquota esonerato', 'fqLibExempt')}${ck('Battuta dal basso', 'underServe')}</div>
