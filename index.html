@@ -359,6 +359,131 @@ td.ck input { width: 20px; height: 20px; accent-color: var(--accent); }
 .lista .sgs2 { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--paperLine); border-right: 0; min-height: 60px; }
 .pb { height: 16px; }
 
+/* referto FIPAV 2017 — foglio A3 orizzontale */
+.sheet.f17 { width: 1660px; font-size: 10px; padding: 18px 20px; --cy: #2bb3e0; --k: #000; line-height: 1.15; }
+.f17 table { border-collapse: collapse; width: 100%; }
+.f17 td, .f17 th { border: 1px solid var(--k); padding: 0 2px; vertical-align: middle; }
+.f17 .cy { background: var(--cy); color: #000; font-family: var(--fd); font-weight: 800; letter-spacing: .03em; text-align: center; font-size: 13px; }
+.f17 .cy.big2 { font-size: 15px; }
+.f17 .cA { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border: 1.6px solid var(--k); border-radius: 50%; font-family: var(--fd); font-weight: 800; font-size: 17px; vertical-align: middle; background: #fff; }
+.f17 .cA.s { width: 15px; height: 15px; font-size: 10px; border-width: 1.2px; margin: 0 2px; }
+.f17 .cA.s.x { background: #000; color: #fff; }
+.f17 .cb { display: inline-flex; width: 13px; height: 13px; border: 1.4px solid var(--k); align-items: center; justify-content: center; font-size: 10px; margin-left: 6px; vertical-align: middle; }
+.f17 .top17 { display: grid; grid-template-columns: 1fr 260px; gap: 14px; margin-bottom: 10px; }
+.f17 .hb { border: 2.5px solid var(--k); padding: 6px 10px; display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
+.f17 .hr { display: flex; gap: 18px; align-items: flex-end; flex-wrap: nowrap; }
+.f17 .fl { display: inline-flex; align-items: flex-end; gap: 8px; flex: 1 1 auto; }
+.f17 .fl b { font-family: var(--fd); font-size: 14px; letter-spacing: .02em; white-space: nowrap; }
+.f17 .fl u { text-decoration: none; border-bottom: 1.2px solid var(--k); flex: 1; padding: 0 6px; font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; }
+.f17 .hr.sqr { align-items: center; gap: 10px; }
+.f17 .hr.sqr u { text-decoration: none; border-bottom: 1.2px solid var(--k); flex: 1; padding: 0 8px; font-size: 13px; font-weight: 700; }
+.f17 .hr.sqr u.r { text-align: right; }
+.f17 .hr.sqr b { font-family: var(--fd); font-size: 15px; }
+.f17 .ttl17 { display: flex; flex-direction: column; justify-content: center; font-family: var(--fd); font-weight: 800; font-size: 26px; line-height: 1; letter-spacing: .02em; border-left: 6px solid var(--cy); padding-left: 14px; }
+.f17 .ttl17 small { font-size: 16px; font-weight: 700; letter-spacing: .12em; margin-top: 4px; }
+.f17 .g2 { display: grid; grid-template-columns: 1.1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.f17 .blk17 { border: 2.5px solid var(--k); table-layout: fixed; }
+.f17 .blk17 td, .f17 .blk17 th { overflow: hidden; }
+.f17 .sqf { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-width: 0; }
+.f17 .sqf .nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.f17 .sqf .ce { display: inline-flex; align-items: center; gap: 2px; flex: none; }
+.f17 .blk17 tr { height: 19px; }
+.f17 .blk17 .hd { font-family: var(--fd); font-weight: 700; font-size: 11.5px; height: 30px; white-space: nowrap; }
+.f17 .blk17 .hd b { font-family: var(--fb); font-size: 11.5px; margin-left: 3px; letter-spacing: -.01em; }
+.f17 .blk17 .hd .cA { width: 22px; height: 22px; font-size: 14px; }
+.f17 .blk17 .hd { padding: 0 3px; }
+.f17 .blk17 .hd.sq { padding-right: 0; }
+.f17 .blk17 .hd.sq { display: table-cell; }
+.f17 .blk17 .hd.sq > span { vertical-align: middle; }
+.f17 .blk17 .hd.sq .ce { float: right; display: inline-flex; align-items: center; gap: 2px; }
+.f17 .blk17 .hd.pac { font-size: 9px; line-height: 1.05; }
+.f17 .blk17 .hd.pac .cA { width: 22px; height: 22px; font-size: 13px; float: right; }
+.f17 .srx { display: inline-flex; flex-direction: column; gap: 1px; }
+.f17 .srx i { font-style: normal; width: 12px; height: 12px; border: 1.2px solid var(--k); border-radius: 50%; font-size: 8px; display: grid; place-items: center; font-family: var(--fb); font-weight: 700; }
+.f17 .srx i.on { background: #000; color: #fff; }
+.f17 .srx i { line-height: 1; }
+.f17 .blk17 .rn { font-family: var(--fd); font-size: 14px; font-weight: 800; text-align: center; background: #fff; }
+.f17 .blk17 .ln { text-align: center; font-family: var(--fd); font-size: 16px; font-weight: 800; height: 21px; }
+.f17 .blk17 .sb { text-align: center; font-family: var(--fd); font-size: 14px; font-weight: 800; }
+.f17 .blk17 .scx { text-align: center; font-weight: 700; font-size: 10px; }
+.f17 .blk17 .sv { text-align: center; font-weight: 800; font-size: 10.5px; width: 2.2%; height: 18px; }
+.f17 .blk17 .pc { width: 72px; padding: 1px; vertical-align: top; }
+.f17 .blk17 .tt { text-align: center; font-family: var(--fd); font-weight: 800; font-size: 13px; }
+.f17 .blk17 .to { text-align: center; font-weight: 700; }
+.f17 .blk17 .lu { width: 18px; text-align: center; font-family: var(--fd); font-weight: 800; font-size: 12px; }
+.f17 .blk17 .pcw { width: 72px; }
+.f17 .blk17 .luw { width: 36px; font-size: 9.5px !important; white-space: normal !important; line-height: 1; text-align: center; }
+.f17 .pg { display: grid; gap: 0; }
+.f17 .pg span { font-size: 8.4px; line-height: 9.3px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 600; }
+.f17 .pg span.h { background: #000; color: #fff !important; font-weight: 800; }
+.f17 .setv { width: 26px; background: var(--cy); text-align: center; font-family: var(--fd); font-weight: 800; font-size: 20px; line-height: 1.05; border-left-width: 2.5px; border-right-width: 2.5px; }
+.f17 .setv b { display: block; font-size: 26px; margin-top: 14px; }
+.f17 .lb { font-size: 9.5px; padding: 0 3px; white-space: nowrap; }
+.f17 .lb.r { text-align: right; } .f17 .lb.c { text-align: center; }
+.f17 .vt { width: 16px; padding: 0; text-align: center; overflow: visible !important; }
+.f17 .vt svg { display: block; margin: 0 auto; }
+.f17 .vt span { display: inline-block; transform: rotate(-90deg); white-space: nowrap; font-size: 9.5px; }
+.f17 .nob { border: 0 !important; }
+.f17 .low17 { display: grid; grid-template-columns: 1fr 380px; gap: 10px; align-items: start; }
+.f17 .lowL { min-width: 0; }
+.f17 .bot17 { display: grid; grid-template-columns: 270px 1fr 360px; gap: 10px; margin-top: 10px; align-items: start; }
+.f17 .san17 table { border: 2.5px solid var(--k); }
+.f17 .san17 th { font-family: var(--fd); font-size: 13px; text-align: center; padding: 1px; }
+.f17 .san17 th small { display: block; font-family: var(--fb); font-size: 7.5px; font-weight: 600; }
+.f17 .san17 th.ri { font-size: 9px; line-height: 1.3; background: #fff; }
+.f17 .san17 td { height: 19px; text-align: center; font-weight: 700; font-size: 11px; }
+.f17 .leg { font-size: 8.5px; border: 2.5px solid var(--k); border-top: 0; padding: 3px 4px; line-height: 1.25; }
+.f17 .oss17 .tab { border: 2.5px solid var(--k); border-bottom: 0; display: inline-block; }
+.f17 .oss17 .tab .cy { display: block; padding: 2px 24px; }
+.f17 .otext { border: 2.5px solid var(--k); min-height: 132px; padding: 2px 8px; font-size: 10.5px; line-height: 19px; background: repeating-linear-gradient(transparent 0 18px, #000 18px 19px); background-position: 0 2px; }
+.f17 .app17 { border: 2.5px solid var(--k); margin-top: 10px; }
+.f17 .app17 th { font-size: 10.5px; height: 20px; }
+.f17 .app17 td { height: 24px; font-size: 11px; font-weight: 600; }
+.f17 .app17 .sgc { padding: 0; }
+.f17 .app17 .sgc .sigimg { height: 22px; margin: 0 auto; }
+.f17 .app17.gl { margin-top: 0; border-top: 0; }
+.f17 .app17.gl td { height: 24px; }
+.f17 .app17 .nr { text-align: right; width: 45%; } .f17 .app17 .nl { width: 45%; }
+.f17 .app17 .glab { text-align: center; font-weight: 700; font-size: 10px; width: 10%; }
+.f17 .app17 .cap { height: 34px; } .f17 .app17 .cap .sigimg { height: 30px; display: inline-block; vertical-align: middle; }
+.f17 .ris17 table { border: 2.5px solid var(--k); }
+.f17 .ris17 th { font-family: var(--fd); font-size: 13px; text-align: center; height: 22px; }
+.f17 .ris17 th small { display: block; font-family: var(--fb); font-size: 7px; }
+.f17 .ris17 .sqn { text-align: left; font-size: 11px; } .f17 .ris17 .sqn.r { text-align: right; }
+.f17 .ris17 .sqn b { font-family: var(--fb); font-size: 11px; }
+.f17 .ris17 .ab2 .cA { margin: 0 1px; }
+.f17 .ris17 td { height: 29px; text-align: center; font-weight: 800; font-size: 13px; font-family: var(--fd); }
+.f17 .ris17 td.pp { font-size: 16px; }
+.f17 .ris17 .setc { width: 108px; text-align: left; padding-left: 8px; }
+.f17 .ris17 .setc span { float: right; padding-right: 8px; font-weight: 600; font-family: var(--fb); font-size: 11px; }
+.f17 .ris17 th.setc span { font-size: 9px; }
+.f17 .ris17 .tot .setc small { display: block; font-size: 9px; text-align: center; font-family: var(--fb); }
+.f17 .ris17 .tot .setc span { float: none; display: block; text-align: right; }
+.f17 .ris17 .ore td { font-family: var(--fb); font-size: 11px; font-weight: 700; height: 34px; }
+.f17 .ris17 .ore small { display: block; font-size: 9.5px; }
+.f17 .ris17 .vince td { text-align: left; height: 34px; font-size: 16px; padding: 0 10px; }
+.f17 .ris17 .vince td { display: table-cell; }
+.f17 .ris17 .vince span:first-child b { font-family: var(--fb); font-size: 13px; margin-left: 8px; }
+.f17 .ris17 .vince .big { float: right; font-size: 22px; }
+.f17 .sq17 table { border: 2.5px solid var(--k); }
+.f17 .sq17 th { font-size: 10.5px; height: 20px; }
+.f17 .sq17 .abh { text-align: left; border-bottom: 0; } .f17 .sq17 .abh.r { text-align: right; }
+.f17 .sq17 td { height: 19.5px; font-size: 11px; font-weight: 600; white-space: nowrap; overflow: hidden; max-width: 140px; }
+.f17 .sq17 td.n, .f17 .sq17 th.n { width: 30px; text-align: center; font-family: var(--fd); font-size: 14px; font-weight: 800; }
+.f17 .sq17 td.capc span { display: inline-grid; place-items: center; width: 22px; height: 18px; border: 1.5px solid var(--k); border-radius: 50%; }
+.f17 .sq17 .code { width: 34px; text-align: center; font-family: var(--fd); font-size: 13px; }
+.f17 .sq17 .stf { font-size: 10.5px; }
+.f17 .sq17 .fsg { height: 38px; vertical-align: top; position: relative; }
+.f17 .sq17 .fsg small { display: block; font-size: 8.5px; }
+.f17 .sq17 .fsg .sigimg { height: 26px; }
+.f17 .sigimg { height: 30px; max-width: 100%; object-fit: contain; display: block; }
+.f17 .tm { font-variant-numeric: tabular-nums; }
+.f17 .big { font-family: var(--fd); font-weight: 800; }
+.f17.pdfmode .cy, .f17.pdfmode .setv { background: #2bb3e0 !important; }
+.f17.pdfmode .srx i.on, .f17.pdfmode .cA.s.x { color: #fff !important; }
+.f17.pdfmode th { background: transparent; }
+.f17.pdfmode .cy { background: #2bb3e0 !important; }
+
 /* versione per il PDF: tutto nero pieno, linee più marcate, numeri piccoli più leggibili */
 .sheet.pdfmode, .sheet.pdfmode * { color: #000 !important; border-color: #000 !important; }
 .sheet.pdfmode i, .sheet.pdfmode .leg, .sheet.pdfmode small { color: #111 !important; font-weight: 600; }
@@ -419,6 +544,8 @@ td.ck input { width: 20px; height: 20px; accent-color: var(--accent); }
   .sheet, .sheet * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .pb { break-after: page; height: 0; }
 }
+.f17 .sqf .nm b { font-size: 10.5px; margin-left: 2px; }
+.f17 .sqf .ce { gap: 1px; }
 
 </style></head><body>
 <script>window.__PWA__=true;</script>
@@ -444,9 +571,9 @@ const PRESETS = {
   roma_open_f: P({ label: 'Open Femminile', grp: ROMA, rete: '2,24' }),
   roma_open_m: P({ label: 'Open Maschile', grp: ROMA, rete: '2,43' }),
   roma_misto42: P({ label: 'Amatori Misto 4+2', grp: ROMA, rete: '2,35', mixed: '42',
-    note: 'Da 1 a 4 uomini in campo. Libero solo con almeno 2 donne in campo e nel sestetto base; un Libero donna che sostituisce un uomo non conta come donna.' }),
+    note: 'Da 1 a 4 uomini in campo. Libero solo con almeno 2 donne in campo e nel sestetto base; con 2 sole donne una donna può essere sostituita solo da un Libero donna; un Libero donna che sostituisce un uomo non conta come donna. Violazione = fallo di posizione: punto e servizio agli avversari.' }),
   roma_misto33: P({ label: 'Amatori Misto 3+3', grp: ROMA, rete: '2,35', mixed: '33',
-    note: 'Da 1 a 3 uomini in campo; mai 3 uomini contemporaneamente in prima linea (zone II, III, IV).' }),
+    note: 'Da 1 a 3 uomini in campo; mai 3 uomini contemporaneamente in prima linea (zone II, III, IV). Il Libero di qualsiasi sesso può sostituire uomini o donne. Violazione = fallo di posizione: punto e servizio agli avversari; se la formazione non si può correggere la squadra è incompleta e perde il set.' }),
   roma_u12m: P(Object.assign({ label: 'Under 12 Maschile', grp: ROMA, rete: '2,10', libero: false, minYear: 2015, fqYear: 2014, underServe: true, note: 'Battuta dal basso obbligatoria, pallone Volley Scuola.' }, GIOV)),
   roma_u12f: P(Object.assign({ label: 'Under 12 Femminile', grp: ROMA, rete: '2,10', libero: false, minYear: 2015, fqYear: 2014, underServe: true, note: 'Battuta dal basso obbligatoria, pallone Volley Scuola.' }, GIOV)),
   roma_u13m: P(Object.assign({ label: 'Under 13 Maschile', grp: ROMA, rete: '2,15', libero: false, minYear: 2014, fqYear: 2013, underServe: true, note: 'Battuta dal basso obbligatoria, pallone Volley Scuola.' }, GIOV)),
@@ -460,14 +587,14 @@ const PRESETS = {
   roma_u17f: P(Object.assign({ label: 'Under 17 Femminile', grp: ROMA, rete: '2,24', minYear: 2010, fqYear: 2009 }, GIOV)),
   roma_u19m: P(Object.assign({ label: 'Under 19 Maschile', grp: ROMA, rete: '2,43', minYear: 2008, fqYear: 2007, note: 'Primo tocco in ricezione solo con le tecniche ammesse (bagher, tuffi, pancake, recuperi).' }, GIOV)),
   roma_u19f: P(Object.assign({ label: 'Under 19 Femminile', grp: ROMA, rete: '2,24', minYear: 2008, fqYear: 2007 }, GIOV)),
-  naz_open_f: P({ label: 'Open Champ Femminile', grp: 'CSEN in Volley Nazionale', sets: 3, maxRoster: 14, subs: 6, rete: '2,24' }),
-  naz_open_m: P({ label: 'Open Champ Maschile', grp: 'CSEN in Volley Nazionale', sets: 3, maxRoster: 14, subs: 6, rete: '2,43' }),
-  naz_misto: P({ label: 'Open Champ Misto 4+2', grp: 'CSEN in Volley Nazionale', sets: 3, maxRoster: 14, subs: 6, rete: '2,35', mixed: '42',
+  naz_open_f: P({ label: 'Open Champ Femminile', grp: 'CSEN in Volley Nazionale 2025/26', sets: 3, maxRoster: 14, subs: 6, rete: '2,24' }),
+  naz_open_m: P({ label: 'Open Champ Maschile', grp: 'CSEN in Volley Nazionale 2025/26', sets: 3, maxRoster: 14, subs: 6, rete: '2,43' }),
+  naz_misto: P({ label: 'Open Champ Misto 4+2', grp: 'CSEN in Volley Nazionale 2025/26', sets: 3, maxRoster: 14, subs: 6, rete: '2,35', mixed: '42',
     note: 'Sempre 2 donne in campo, schierate nella formazione iniziale. Doppio Libero ammesso.' }),
-  naz_u14f: P({ label: 'Under 14 Femminile', grp: 'CSEN in Volley Nazionale', sets: 3, maxRoster: 14, subs: 6, rete: '2,15', minYear: 2012 }),
-  naz_u16f: P({ label: 'Under 16 Femminile', grp: 'CSEN in Volley Nazionale', sets: 3, maxRoster: 14, subs: 6, rete: '2,20', minYear: 2010 }),
-  naz_u18f: P({ label: 'Under 18 Femminile', grp: 'CSEN in Volley Nazionale', sets: 3, maxRoster: 14, subs: 6, rete: '2,24', minYear: 2008 }),
-  naz_u17m: P({ label: 'Under 17 Maschile', grp: 'CSEN in Volley Nazionale', sets: 3, maxRoster: 14, subs: 6, rete: '2,43', minYear: 2009, note: 'Primo tocco di ricezione obbligatorio in bagher.' }),
+  naz_u14f: P({ label: 'Under 14 Femminile', grp: 'CSEN in Volley Nazionale 2025/26', sets: 3, maxRoster: 14, subs: 6, rete: '2,15', minYear: 2012 }),
+  naz_u16f: P({ label: 'Under 16 Femminile', grp: 'CSEN in Volley Nazionale 2025/26', sets: 3, maxRoster: 14, subs: 6, rete: '2,20', minYear: 2010 }),
+  naz_u18f: P({ label: 'Under 18 Femminile', grp: 'CSEN in Volley Nazionale 2025/26', sets: 3, maxRoster: 14, subs: 6, rete: '2,24', minYear: 2008 }),
+  naz_u17m: P({ label: 'Under 17 Maschile', grp: 'CSEN in Volley Nazionale 2025/26', sets: 3, maxRoster: 14, subs: 6, rete: '2,43', minYear: 2009, note: 'Primo tocco di ricezione obbligatorio in bagher.' }),
   custom: P({ label: 'Personalizzato', grp: 'Altro' }),
 };
 
@@ -488,7 +615,7 @@ function newMatch(presetKey) {
   const cfg = Object.assign({}, pr); cfg.preset = presetKey;
   return {
     id: uid(), v: 1, created: Date.now(), updated: Date.now(),
-    cfg, info: { camp: (pr.grp === 'Altro' ? '' : pr.grp + ' — ') + pr.label, num: '', date: new Date().toISOString().slice(0, 10), time: '', place: '', city: '', girone: '', giornata: '', ref1: '', ref2: '', scorer: '' },
+    cfg: Object.assign(cfg, { refModel: 'fipav17' }), info: { camp: (pr.grp === 'Altro' ? '' : pr.grp + ' — ') + pr.label, num: '', date: new Date().toISOString().slice(0, 10), time: '', place: '', city: '', girone: '', giornata: '', ref1: '', ref2: '', scorer: '' },
     teams: { A: { name: '', players: [], staff: [] }, B: { name: '', players: [], staff: [] } },
     toss: null, sets: [], obs: '', claim: '', autoNotes: [], sig: {},
   };
@@ -524,7 +651,7 @@ function rosterErrors(m, team) {
     if (p.year && !okDate(p.year)) e.push(`N. ${p.n}: data di nascita incompleta o non valida (usa gg/mm/aaaa).`);
     if (c.minYear && !y) e.push(`N. ${p.n}: indicare la data (o l'anno) di nascita.`);
     if (c.minYear && y && c.fqYear && y < c.fqYear) {
-      if (!(p.lib && c.fqLibExempt && y === c.fqYear - 1)) e.push(`N. ${p.n}: nato nel ${y}, fuori dai limiti d'età (fuoriquota ammessi: nati nel ${c.fqYear}).`);
+      e.push(`N. ${p.n}: nato nel ${y}, fuori dai limiti d'età (ammessi i nati dal ${c.minYear}; fuoriquota: nati nel ${c.fqYear}).`);
     }
   });
   if (ps.filter(p => p.cap).length > 1) e.push('Indicare un solo capitano.');
@@ -624,7 +751,7 @@ function simSet(m, si, upto) {
     const before = { A: st.score.A, B: st.score.B };
     const t = ev.team;
     let txt = '';
-    if (ev.t === 'pt') { point(t, ev); txt = 'Punto'; }
+    if (ev.t === 'pt') { point(t, ev, ev.why); txt = ev.why === 'FP' ? `Fallo di posizione della squadra ${OPP(t)}: punto e servizio` : 'Punto'; }
     else if (ev.t === 'to') { st.tos[t]++; st.toLog[t].push({ a: st.score[t], b: st.score[OPP(t)] }); txt = `Time-out (${st.tos[t]})`; }
     else if (ev.t === 'sub') {
       const out = String(ev.out), inn = String(ev.in);
@@ -813,7 +940,7 @@ if (typeof module !== 'undefined') module.exports = { PRESETS, SANC, newMatch, s
 <script>
 // ================= INTERFACCIA =================
 const PWA = !!window.__PWA__;
-const APP_VER = '2.1 · 09/11/2026';
+const APP_VER = '2.4 · 09/11/2026';
 // app aperta dall'icona su iPhone/iPad: lì Safari ignora window.print()
 const IOS_APP = !!(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)));
 const $app = document.getElementById('app');
@@ -933,6 +1060,7 @@ function vGara() {
       ${fld('1° arbitro', 'info.ref1', i.ref1)}${fld('2° arbitro', 'info.ref2', i.ref2)}${fld('Segnapunti / refertista', 'info.scorer', i.scorer)}
     </div></div>
   <div class="card stack"><div class="row" style="justify-content:space-between"><div class="eyebrow">Regole applicate</div>${locked ? '<span class="small muted">Bloccate: la gara è iniziata.</span>' : ''}</div>
+    <label class="f">Modello di referto<select data-f="cfg.refModel"><option value="fipav17" ${(c.refModel || 'fipav17') === 'fipav17' ? 'selected' : ''}>Referto FIPAV 2017 (A3)</option><option value="csen" ${c.refModel === 'csen' ? 'selected' : ''}>Referto CSEN Roma (A4)</option></select></label>
     <label class="f">Campionato CSEN (preset)<select data-a2="preset" ${locked ? 'disabled' : ''}>${presetOptions(c.preset)}</select></label>
     ${c.note ? `<div class="msg warn">${H(c.note)}</div>` : ''}
     <div class="fgrid">
@@ -984,8 +1112,8 @@ function sigBox(k, label) {
 }
 function vSquadre() {
   return `<div class="stack"><div class="grid2">${vTeam('A')}${vTeam('B')}</div>
-  <div class="card stack"><div><div class="eyebrow">Firme prima della gara</div><p class="small muted" style="margin:4px 0 0">Capitano e dirigente accompagnatore firmano la lista gara della propria squadra. Le modifiche agli elenchi dopo le firme vengono annotate nelle note di gara.</p></div>
-  <div class="sigs">${sigBox('capA_pre', 'Capitano ' + tName('A'))}${sigBox('dirA_pre', 'Dirigente accompagnatore ' + tName('A'))}${sigBox('capB_pre', 'Capitano ' + tName('B'))}${sigBox('dirB_pre', 'Dirigente accompagnatore ' + tName('B'))}</div></div></div>`;
+  <div class="card stack"><div><div class="eyebrow">Firme prima della gara</div><p class="small muted" style="margin:4px 0 0">Capitano, allenatore e dirigente accompagnatore firmano prima della gara. Le modifiche agli elenchi dopo le firme vengono annotate nelle note di gara.</p></div>
+  <div class="sigs">${sigBox('capA_pre', 'Capitano ' + tName('A'))}${sigBox('allA_pre', 'Allenatore ' + tName('A'))}${sigBox('dirA_pre', 'Dirigente accompagnatore ' + tName('A'))}${sigBox('capB_pre', 'Capitano ' + tName('B'))}${sigBox('allB_pre', 'Allenatore ' + tName('B'))}${sigBox('dirB_pre', 'Dirigente accompagnatore ' + tName('B'))}</div></div></div>`;
 }
 
 // ---------- GIOCO ----------
@@ -1090,10 +1218,11 @@ function vLive(r, st) {
       <button class="pt" data-a="pt" data-t="${t}">PUNTO<small>${H(tName(t))}</small></button>
       <div class="act"><button class="btn" data-a="to" data-t="${t}" ${st.tos[t] >= c.tos ? 'disabled' : ''}>Time-out</button><button class="btn" data-a="subDlg" data-t="${t}">Cambio</button>
       ${c.libero ? `<button class="btn" data-a="libDlg" data-t="${t}">Libero</button>` : ''}<button class="btn" data-a="sanDlg" data-t="${t}">Sanzione</button></div></div>`;
-  const warns = [...st.warn[L].map(w => `<div class="msg bad"><b>${H(tName(L))}:</b> ${H(w)}</div>`), ...st.warn[R].map(w => `<div class="msg bad"><b>${H(tName(R))}:</b> ${H(w)}</div>`)];
+  const fpBtn = t => M.cfg.mixed ? ` <button class="btn sm" data-a="fallo" data-t="${t}">Fallo di posizione: punto a ${H(tName(OPP(t)))}</button>` : '';
+  const warns = [...st.warn[L].map(w => `<div class="msg bad"><b>${H(tName(L))}:</b> ${H(w)}${/donne|uomini|uomo|prima linea/i.test(w) ? fpBtn(L) : ''}</div>`), ...st.warn[R].map(w => `<div class="msg bad"><b>${H(tName(R))}:</b> ${H(w)}${/donne|uomini|uomo|prima linea/i.test(w) ? fpBtn(R) : ''}</div>`)];
   const tbNote = st.tb && Math.max(st.score.A, st.score.B) === c.tbSwitchAt && !(M.toss.noSideChange || !c.sideChange) ? `<div class="msg warn">Tie-break: a ${c.tbSwitchAt} punti le squadre cambiano campo (già invertite sullo schermo).</div>` : '';
   const done = r.sets.filter(s => s.over && !s.golden).map(s => `<span>${s.score[L]}-${s.score[R]}</span>`).join('');
-  const log = st.log.slice().reverse().slice(0, 30).map(l => `<div><span class="s">${l.after[L]}-${l.after[R]}</span><span><span class="sw ${l.team || ''}"></span>${l.t === 'pt' ? 'Punto ' + H(tName(l.team)) : H(l.txt)}${l.t !== 'pt' && l.team ? ' · ' + H(tName(l.team)) : ''}</span></div>`).join('');
+  const log = st.log.slice().reverse().slice(0, 30).map(l => `<div><span class="s">${l.after[L]}-${l.after[R]}</span><span><span class="sw ${l.team || ''}"></span>${l.t === 'pt' && !/Fallo/.test(l.txt) ? 'Punto ' + H(tName(l.team)) : H(l.txt)}${l.t !== 'pt' && l.team ? ' · ' + H(tName(l.team)) : ''}</span></div>`).join('');
   const auto = st.autoLib.filter(a => a.ev === (M.sets[st.si].ev.length - 1)).map(a => `<div class="msg warn">Il Libero ${H(a.lib)} (${H(tName(a.team))}) è arrivato in zona IV: rientrato in automatico il n. ${H(a.back)}.</div>`).join('');
   return `<div class="live">
     <div class="board">${tbBlock(L, 'L')}<div class="mid"><span class="sn">${st.golden ? 'Golden set' : st.tb ? 'Tie-break' : 'Set ' + (st.si + 1)}</span><span class="sw2">${r.won[L]} – ${r.won[R]}</span><span class="sn">a ${st.target}</span></div>${tbBlock(R, 'R')}</div>
@@ -1132,13 +1261,10 @@ function autoNotes(r) {
   r.sets.forEach(st => {
     ['A', 'B'].forEach(t => st.subLog[t].filter(s => s.exc).forEach(s => n.push(`Set ${st.si + 1}: sostituzione eccezionale ${tName(t)}, esce ${s.out} entra ${s.in} sul ${s.a}-${s.b}.`)));
     st.sanc.filter(s => s.k === 'ES' || s.k === 'SQ').forEach(s => n.push(`Set ${s.set}: ${SANC[s.k].l} ${whoLabel(M, s.team, s.who)} (${tName(s.team)}) sul ${s.a}-${s.b}.`));
+    st.log.filter(l => /Fallo di posizione/.test(l.txt)).forEach(l => n.push(`Set ${st.si + 1}: fallo di posizione di ${tName(OPP(l.team))} sul ${l.before.A}-${l.before.B} (punto a ${tName(l.team)}).`));
     if (st.forced && !st.matchForfeit) n.push(`Set ${st.si + 1}: ${tName(st.forced)} dichiarata incompleta, perde il set.`);
     if (st.matchForfeit) n.push(`${tName(st.matchForfeit)} perde la gara (set ${st.si + 1}).`);
     if (st.suspended) n.push(`Gara terminata allo stato attuale durante il set ${st.si + 1}.`);
-  });
-  ['A', 'B'].forEach(t => {
-    const pen = {}; r.sets.forEach(st => st.sanc.filter(s => s.team === t && s.k === 'PE').forEach(s => pen[s.who] = (pen[s.who] || 0) + 1));
-    Object.entries(pen).filter(([, k]) => k >= 3).forEach(([w]) => n.push(`${whoLabel(M, t, w)} (${tName(t)}): ${pen[w]} penalizzazioni nella gara.`));
   });
   return n;
 }
@@ -1161,14 +1287,14 @@ function pointMarks(st, t) { const pen = new Set(); let c = 0; st.prog.forEach(p
 function ptsGrid(n, upto, from, pen) {
   // colonna PUNTI: 4 colonne da 12 (1-48), come sul modulo
   let h = '<div class="pg">';
-  for (let r = 1; r <= 12; r++) for (let col = 0; col < 4; col++) { const v = r + col * 12; const cl = v <= upto && v > from ? (pen.has(v) ? 'pe' : 'h') : (v <= from ? 'pre' : ''); h += `<span class="${cl}">${v}</span>`; }
+  for (let r = 1; r <= 12; r++) for (let col = 0; col < 4; col++) { const v = r + col * 12; const cl = v <= upto && v > from ? 'h' : ''; h += `<span class="${cl}">${v}</span>`; }
   return h + '</div>';
 }
 function teamSec(t, d) {
   // d: { lineup, subs:[{pos,in,a,b,back}], svc:[{box,score}], tos:[{a,b}], score, pen, from, side, sr, name, libs, extraHead }
   const subAt = k => d.subs.find(x => x.pos === k) || {};
   const turns = POS.map((_, k) => d.svc.filter(x => x.box === k).map(x => x.score));
-  const cell = (k, i) => { const v = turns[k][i]; return `<td class="sv${v != null ? ' on' : ''}">${v != null ? v : `<i>${i + 1}</i>`}</td>`; };
+  const cell = (k, i) => { const v = turns[k][i]; return `<td class="sv${v != null ? ' on' : ''}">${v != null ? v : ''}</td>`; };
   const svRows = [0, 1, 2, 3].map(r => `<tr>${POS.map((_, k) => cell(k, r) + cell(k, r + 4)).join('')}</tr>`).join('');
   const tos = [0, 1].map(k => `<div class="to">${d.tos[k] ? d.tos[k].a + ':' + d.tos[k].b : ':'}</div>`).join('');
   return `<table class="ts"><tbody>
@@ -1195,8 +1321,8 @@ function setHead(st, L, R, label, tbMode) {
   const s = M.sets[st.si];
   const sr = t => `<span class="srb">${s.firstServe === t ? 'S' : 'R'}</span>`;
   const libs = t => { const l = M.teams[t].players.filter(p => p.lib).map(p => p.n); return l.length ? ` <small>L ${l.join(', ')}</small>` : ''; };
-  return `<div class="bh"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">${sr(L)}SQ. <b>(${L}) ${H(tName(L))}</b>${libs(L)}</div><div class="pp">PUNTI <b>${st.prog.length || st.over ? st.score[L] : ''}</b></div>
-    ${tbMode ? '<div class="gap"></div>' : ''}<div class="sq">${sr(R)}SQ. <b>(${R}) ${H(tName(R))}</b>${libs(R)}</div><div class="ti">FINE <b>${fmtTime(st.endTs) || '&nbsp;:&nbsp;'}</b></div><div class="pp">PUNTI <b>${st.prog.length || st.over ? st.score[R] : ''}</b></div></div>`;
+  return `<div class="bh"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">${sr(L)}SQ. <b>(${L}) ${H(tName(L))}</b></div><div class="pp">PUNTI <b>${st.prog.length || st.over ? st.score[L] : ''}</b></div>
+    ${tbMode ? '<div class="gap"></div>' : ''}<div class="sq">${sr(R)}SQ. <b>(${R}) ${H(tName(R))}</b></div><div class="ti">FINE <b>${fmtTime(st.endTs) || '&nbsp;:&nbsp;'}</b></div><div class="pp">PUNTI <b>${st.prog.length || st.over ? st.score[R] : ''}</b></div></div>`;
 }
 function emptyBlock(n) {
   const blank = { lineup: ['', '', '', '', '', ''], subs: [], svc: [], tos: [], score: 0, pen: new Set() };
@@ -1226,8 +1352,8 @@ function tbBlock(st, n) {
   const sr = t => `<span class="srb">${s.firstServe === t ? 'S' : 'R'}</span>`;
   const libs = t => { const l = M.teams[t].players.filter(p => p.lib).map(p => p.n); return l.length ? ` <small>L ${l.join(', ')}</small>` : ''; };
   const has = st.prog.length || st.over;
-  const head = `<div class="three hrow"><div class="bh h3"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">${sr(L)}SQ. <b>(${L}) ${H(tName(L))}</b>${libs(L)}</div><div class="pp">PUNTI <b>${has ? atCh : ''}</b></div></div><div></div>
-    <div class="bh h3"><div class="sq">${sr(R)}SQ. <b>(${R}) ${H(tName(R))}</b>${libs(R)}</div><div class="ti">FINE <b>${fmtTime(st.endTs) || '&nbsp;:&nbsp;'}</b></div><div class="pp">PUNTI <b>${has ? st.score[R] : ''}</b></div></div><div></div>
+  const head = `<div class="three hrow"><div class="bh h3"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">${sr(L)}SQ. <b>(${L}) ${H(tName(L))}</b></div><div class="pp">PUNTI <b>${has ? atCh : ''}</b></div></div><div></div>
+    <div class="bh h3"><div class="sq">${sr(R)}SQ. <b>(${R}) ${H(tName(R))}</b></div><div class="ti">FINE <b>${fmtTime(st.endTs) || '&nbsp;:&nbsp;'}</b></div><div class="pp">PUNTI <b>${has ? st.score[R] : ''}</b></div></div><div></div>
     <div class="bh h3"><div class="sq">SQ. <b>(${L}) ${H(tName(L))}</b></div><div class="pp">PUNTI AL CAMBIO <b>${sw > 0 ? atCh : ''}</b></div><div class="pp">PUNTI <b>${sw > 0 ? st.score[L] : ''}</b></div></div></div>`;
   return `<div class="blk tbk"><div class="vs"><span>S<br>E<br>T</span><b>${n}</b></div><div class="bd">${head}
     <div class="three"><div class="tl">${teamSec(L, dLsec).replace('class="pc"', 'class="pc cpre"')}</div>${centre}<div>${teamSec(R, dR)}</div>
@@ -1255,14 +1381,14 @@ function vReferto(r) {
   const resRows = Array.from({ length: c.sets }, (_, k) => { const s = regs[k]; const has = s && (s.over || s.prog.length); return `<tr><td class="tm">${has ? s.score.A : ''}</td><th>${k + 1}</th><td class="tm">${has ? s.score.B : ''}</td></tr>`; }).join('');
   const notes = autoNotes(r);
   const obs = [...notes.map(H), M.obs ? H(M.obs) : '', M.claim ? '<b>Reclamo:</b> ' + H(M.claim) : '',
-    ...['A', 'B'].map(t => { const l = []; r.sets.forEach(st => st.libLog[t].forEach(x => l.push(`${x.out}→${x.in} (${st.si + 1}° set ${x.a}:${x.b})`))); return l.length ? `Libero (${t}): ${H(l.join(', '))}` : ''; })].filter(Boolean).join('<br>');
+  ].filter(Boolean).join('<br>');
   const sg = (k, l) => `<div class="sg"><i>${l}</i>${M.sig[k] ? `<img class="sigimg" src="${M.sig[k]}" alt="">` : ''}</div>`;
   const referto = `<div class="sheetwrap"><div class="sheet ref" id="sheet">
     <div class="top"><div class="hdbox">
       <div class="ln1"><span>CATEGORIA <b>${H(i.camp)}</b></span><span>FASE <b>${H([i.girone, i.giornata ? 'giornata ' + i.giornata : ''].filter(Boolean).join(' · '))}</b></span></div>
       <div class="ln1"><span>DIVISIONE: MASCHILE ${box(div === 'M')} FEMMINILE ${box(div === 'F')} MISTO ${box(div === 'X')}</span><span>DATA <b>${fmtDate(i.date)}</b></span><span>ORA <b>${H(i.time)}</b></span><span>GARA N° <b>${H(i.num)}</b></span></div>
       <div class="ln1"><span><span class="ab">A</span> SQUADRA OSPITANTE <b>${H(tName('A'))}</b></span><span><span class="ab">B</span> SQUADRA OSPITE <b>${H(tName('B'))}</b></span></div></div>
-      <div class="brand"><div class="t1">Referto gara</div><div class="t2">Pallavolo · CSEN</div><div class="t3">${H([i.place, i.city].filter(Boolean).join(', '))}${c.rete ? ' · rete ' + H(c.rete) + ' m' : ''}<br>Arbitro: ${H([i.ref1, i.ref2].filter(Boolean).join(' / ') || '—')} · Segnapunti: ${H(i.scorer || '—')}</div></div></div>
+      <div class="brand"><div class="t1">Referto gara</div><div class="t2">Pallavolo · CSEN</div></div></div>
     <div class="blocks">${blocks.join('')}</div>
     <div class="lower">
       <div class="san"><div class="cap">SANZIONI</div><table><thead><tr><th>A<br><small>(Avv.)</small></th><th>P<br><small>(Pen.)</small></th><th>A/B</th><th>SET</th><th>PUNTEGGIO</th></tr></thead><tbody>${sRows.join('')}</tbody></table>
@@ -1270,7 +1396,7 @@ function vReferto(r) {
       <div class="tbslot">${tbHtml}</div>
       <div class="res"><div class="cap">RISULTATO FINALE</div><table><thead><tr><th>P<br><small>(A)</small></th><th>SET</th><th>P<br><small>(B)</small></th></tr></thead><tbody>${resRows}</tbody></table>
         <div class="vince">VINCE <b>${r.winner ? H(tName(r.winner)) : ''}</b> <span class="big">${r.winner ? r.won[r.winner] + ':' + r.won[OPP(r.winner)] : ':'}</span></div>
-        ${r.pts ? `<div class="small2">Classifica: (A) ${r.pts.A} · (B) ${r.pts.B}</div>` : ''}${r.golden ? `<div class="small2">Golden set ${r.golden.score.A}-${r.golden.score.B}</div>` : ''}</div>
+        ${r.golden ? `<div class="small2">Golden set ${r.golden.score.A}-${r.golden.score.B}</div>` : ''}</div>
     </div>
     <div class="last"><div class="obs"><div class="cap l">OSSERVAZIONI</div><div class="otext">${obs || '&nbsp;'}</div></div>
       <div class="fir"><div class="cap">FIRME</div><div class="sgs">${sg('capA_post', 'Capitano Ⓐ')}${sg('capB_post', 'Capitano Ⓑ')}${sg('ref1', 'Arbitro')}${sg('scorer', 'Segnapunti')}</div></div></div>
@@ -1291,8 +1417,173 @@ function vReferto(r) {
       <div class="sgs2">${sg('dir' + t + '_pre', 'Firma del dirigente accompagnatore')}${sg('cap' + t + '_pre', 'Firma del capitano')}</div></div></div>`;
   };
   return `<div class="stack"><div class="row noprint">${PWA ? `<button class="btn pri" data-a="pdf">Crea PDF del referto</button>${IOS_APP ? '' : '<button class="btn" data-a="print">Stampa</button>'}<button class="btn" data-a="exportOne">Esporta gara (file)</button>` : '<span class="small muted">Per il PDF: apri la gara nella versione installata e usa “Crea PDF del referto”.</span>'}<button class="btn" data-a="copyRes">Copia risultato</button></div>
-    <p class="small muted noprint" style="margin:0">Il referto segue il modello CSEN Roma (pagina orizzontale A4). Le liste gara delle due squadre sono nelle pagine successive.</p>
-    ${referto}<div class="pb"></div>${lista('A')}<div class="pb"></div>${lista('B')}</div>`;
+    <p class="small muted noprint" style="margin:0">${(c.refModel || 'fipav17') === 'fipav17' ? 'Modello: referto FIPAV 2017 (A3 orizzontale).' : 'Modello: referto CSEN Roma (A4 orizzontale).'} Puoi cambiarlo nella scheda Gara. Seguono le liste gara delle due squadre (A4).</p>
+    ${(c.refModel || 'fipav17') === 'fipav17' ? vReferto17(r) : referto}<div class="pb"></div>${lista('A')}<div class="pb"></div>${lista('B')}</div>`;
+}
+
+// ---------- REFERTO FIPAV 2017 (A3 orizzontale) ----------
+function roleCode(role) { return { 'Allenatore': 'A', '2° allenatore': 'VA', 'Fisioterapista': 'FT', 'Medico': 'M' }[role] || 'D'; }
+function whoCode17(t, who) {
+  if (who === 'T') return 'RG';
+  if (/^S\d+$/.test(String(who))) { const s = M.teams[t].staff[+String(who).slice(1)] || {}; return roleCode(s.role); }
+  return String(who);
+}
+function pts17(max, cols, upto, from, nrows) {
+  const rows = nrows || Math.ceil(max / cols); let h = `<div class="pg" style="grid-template-columns:repeat(${cols},1fr)">`;
+  for (let r = 1; r <= rows; r++) for (let c = 0; c < cols; c++) { const v = r + c * rows; h += v <= max ? `<span class="${v <= upto && v > (from || 0) ? 'h' : ''}">${v}</span>` : '<span></span>'; }
+  return h + '</div>';
+}
+const BLANK17 = () => ({ lineup: ['', '', '', '', '', ''], subs: [], svc: [], tos: [], score: 0 });
+// una sezione squadra: restituisce le 10 righe (intestazione + 9) come celle da affiancare
+function sec17(t, d, o) {
+  const R = [];
+  const circ = t ? `<span class="cA">${t}</span>` : '<span class="cA"></span>';
+  const sr = `<span class="srx"><i class="${o.serve === true ? 'on' : ''}">S</i><i class="${o.serve === false ? 'on' : ''}">R</i></span>`;
+  const name = t ? H(tName(t)) : '';
+  const tm = v => v ? fmtTime(v) : '&nbsp;&nbsp;:&nbsp;&nbsp;';
+  const pv = o.showPts ? d.score : '';
+  if (o.kind === 'L') R.push(`<td colspan="4" class="hd">INIZIO <b>${tm(o.time)}</b></td><td colspan="8" class="hd sq"><div class="sqf"><span class="nm">SQ. <b>${name}</b></span><span class="ce">${circ}${sr}</span></div></td><td class="hd pcw">PUNTI <b>${pv}</b></td><td colspan="2" class="hd luw">LIBERO / UNDER</td>`);
+  else if (o.kind === 'R') R.push(`<td colspan="8" class="hd sq"><div class="sqf"><span class="ce">${sr}${circ}</span><span class="nm">SQ. <b>${name}</b></span></div></td><td colspan="4" class="hd">FINE <b>${tm(o.time)}</b></td><td class="hd pcw">PUNTI <b>${pv}</b></td><td colspan="2" class="hd luw">LIBERO / UNDER</td>`);
+  else R.push(`<td colspan="8" class="hd sq"><div class="sqf"><span class="ce">${circ}</span><span class="nm">SQ. <b>${name}</b></span></div></td><td colspan="4" class="hd pac">PUNTI AL<br>CAMBIO <span class="cA">${o.atCh != null ? o.atCh : ''}</span></td><td class="hd pcw">PUNTI <b>${pv}</b></td><td colspan="2" class="hd luw">LIBERO / UNDER</td>`);
+  const subAt = k => d.subs.find(x => x.pos === k) || {};
+  const turns = POS.map((_, k) => d.svc.filter(x => x.box === k).map(x => x.score));
+  const libs = t ? M.teams[t].players.filter(p => p.lib).map(p => p.n) : [];
+  const lu = r => `<td class="lu">${r < libs.length && o.kind !== 'C' ? H(libs[r]) : ''}</td><td class="lu"></td>`;
+  const ptsCell = o.small ? pts17(13, 2, o.smallUpto, 0, 8) : pts17(48, 4, d.score, o.from);
+  R.push(POS.map(p => `<th colspan="2" class="rn">${p}</th>`).join('') + `<td class="pc" rowspan="6">${ptsCell}</td>` + lu(0));
+  R.push(d.lineup.map(n => `<td colspan="2" class="ln">${H(n)}</td>`).join('') + lu(1));
+  R.push(POS.map((_, k) => `<td colspan="2" class="sb">${H(subAt(k).in || '')}</td>`).join('') + lu(2));
+  R.push(POS.map((_, k) => `<td colspan="2" class="scx">${subAt(k).in ? subAt(k).a + ' : ' + subAt(k).b : ':'}</td>`).join('') + lu(3));
+  R.push(POS.map((_, k) => `<td colspan="2" class="scx">${subAt(k).back ? subAt(k).back.a + ' : ' + subAt(k).back.b : ':'}</td>`).join('') + lu(4));
+  for (let r = 0; r < 4; r++) {
+    let row = POS.map((_, k) => { const a = turns[k][r], b = turns[k][r + 4]; return `<td class="sv">${a != null ? a : ''}</td><td class="sv">${b != null ? b : ''}</td>`; }).join('');
+    if (r === 1) row += `<td class="tt">"T"</td>`;
+    if (r === 2 || r === 3) row += `<td class="to">${d.tos[r - 2] ? d.tos[r - 2].a + ' : ' + d.tos[r - 2].b : ':'}</td>`;
+    R.push(row + lu(5 + r));
+  }
+  R.cols = [...Array(12).fill(0), 74, 21, 21];
+  return R;
+}
+function labels17() {
+  const R = ['<td colspan="4" class="nob"></td>', '<td colspan="4" class="lb r">Ordine di servizio</td>', '<td rowspan="4" class="vt"><svg width="14" height="80" viewBox="0 0 14 80"><text x="10" y="40" transform="rotate(-90 10 40)" text-anchor="middle" font-size="10" font-family="Barlow, Arial, sans-serif" fill="#000">Formazioni</text></svg></td><td colspan="3" class="lb r">Giocatori titolari N°</td>',
+    '<td rowspan="3" class="vt"><svg width="14" height="60" viewBox="0 0 14 60"><text x="10" y="30" transform="rotate(-90 10 30)" text-anchor="middle" font-size="10" font-family="Barlow, Arial, sans-serif" fill="#000">Sostituzioni</text></svg></td><td colspan="2" class="lb r">Riserve N°</td>', '<td colspan="2" rowspan="2" class="lb c">Punteggio<br>al cambio</td>', '',
+    '<td colspan="3" rowspan="4" class="lb c">Turni di<br>servizio</td><td class="lb c">1°&nbsp;&nbsp;5°</td>', '<td class="lb c">2°&nbsp;&nbsp;6°</td>', '<td class="lb c">3°&nbsp;&nbsp;7°</td>', '<td class="lb c">4°&nbsp;&nbsp;8°</td>'];
+  R.cols = [16, 16, 60, 36]; return R;
+}
+function strip17(txt, n) { const R = [`<td rowspan="10" class="setv">${txt}${n != null ? `<b>${n}</b>` : ''}</td>`, '', '', '', '', '', '', '', '', '']; R.cols = [28]; return R; }
+function join17(parts) { const cols = parts.flatMap(p => p.cols); return `<table class="blk17"><colgroup>${cols.map(w => w ? `<col style="width:${w}px">` : '<col>').join('')}</colgroup><tbody>${parts[0].map((_, i) => `<tr class="r${i}">${parts.map(p => p[i]).join('')}</tr>`).join('')}</tbody></table>`; }
+function setBlock17(si, n, withLabels, r) {
+  const st = si != null ? r.sets[si] : null, s = si != null ? M.sets[si] : null;
+  const defL = n % 2 === 1 ? 'A' : 'B';
+  const L = s ? s.left : defL, R = OPP(L);
+  const dL = st ? secData(M, st, L) : BLANK17(), dR = st ? secData(M, st, R) : BLANK17();
+  const has = st && (st.prog.length || st.over);
+  const parts = [];
+  if (withLabels) parts.push(labels17());
+  parts.push(strip17('S<br>E<br>T', n));
+  parts.push(sec17(L, dL, { kind: 'L', time: st && st.startTs, serve: s ? s.firstServe === L : null, showPts: has }));
+  parts.push(sec17(R, dR, { kind: 'R', time: st && st.endTs, serve: s ? s.firstServe === R : null, showPts: has }));
+  return join17(parts);
+}
+function set5Block17(r) {
+  const c = M.cfg, n = c.sets;
+  const tbIdx = M.sets.findIndex((x, k) => isTb(M, k));
+  const st = tbIdx >= 0 ? r.sets[tbIdx] : null, s = tbIdx >= 0 ? M.sets[tbIdx] : null;
+  let L = s ? s.left : null, R = L ? OPP(L) : null;
+  let sw = -1, pre = st, atCh = null;
+  const noChange = (M.toss && M.toss.noSideChange) || !c.sideChange;
+  if (st && !noChange) for (let k = 1; k <= s.ev.length; k++) { const x = simSet(M, tbIdx, k); if (Math.max(x.score.A, x.score.B) >= c.tbSwitchAt) { sw = k; break; } }
+  if (sw > 0) { pre = simSet(M, tbIdx, sw); atCh = pre.score[L]; }
+  const has = st && (st.prog.length || st.over);
+  const dL = st ? Object.assign(secData(M, pre, L), {}) : BLANK17();
+  const dR = st ? secData(M, st, R) : BLANK17();
+  let d3 = BLANK17();
+  if (st && sw > 0) { d3 = secData(M, st, L, { sub: pre.subLog[L].length, svc: pre.svc[L].length, to: pre.toLog[L].length }); d3.from = atCh; }
+  const parts = [labels17(), strip17('S<br>E<br>T', tbIdx >= 0 || c.mode === 'best' && c.lastTb ? n : null),
+    sec17(L, dL, { kind: 'L', time: st && st.startTs, serve: s ? s.firstServe === L : null, showPts: has, small: true, smallUpto: st ? (sw > 0 ? atCh : st.score[L]) : 0 }),
+    sec17(R, dR, { kind: 'R', time: st && st.endTs, serve: s ? s.firstServe === R : null, showPts: has }),
+    strip17('C<br>A<br>M<br>B<br>I<br>O<br><br>C<br>A<br>M<br>P<br>O'),
+    sec17(sw > 0 ? L : null, d3, { kind: 'C', atCh, showPts: sw > 0, from: atCh })];
+  if (sw > 0) parts[5][0] = parts[5][0].replace('PUNTI <b></b>', `PUNTI <b>${st.score[L]}</b>`);
+  return join17(parts);
+}
+function vReferto17(r) {
+  const i = M.info, c = M.cfg;
+  const preset = PRESETS[c.preset] || {};
+  const lab = (preset.label || '') + ' ' + i.camp;
+  const div = /Maschile/i.test(lab) ? 'M' : /Femminile/i.test(lab) ? 'F' : '';
+  const box = v => `<span class="cb">${v ? '✕' : ''}</span>`;
+  const reg = []; M.sets.forEach((x, k) => { if (!isTb(M, k) && !x.golden) reg.push(k); });
+  const nReg = c.mode === 'best' && c.lastTb ? c.sets - 1 : c.sets;
+  const blk = k => setBlock17(reg[k] != null ? reg[k] : null, k + 1, k % 2 === 0, r);
+  const rows12 = `<div class="g2">${blk(0)}${blk(1)}</div><div class="g2">${blk(2)}${nReg >= 4 || reg[3] != null ? blk(3) : setBlock17(null, 4, false, r)}</div>`;
+  // sanzioni
+  const sanc = []; r.sets.forEach(st => st.sanc.forEach(s => sanc.push(s)));
+  const sRows = sanc.filter(s => s.k !== 'RI').map(s => {
+    const code = whoCode17(s.team, s.who), col = { AV: 0, AR: 0, PE: 1, PR: 1, ES: 2, SQ: 3 }[s.k];
+    return `<tr>${[0, 1, 2, 3].map(k => `<td>${k === col ? H(code) : ''}</td>`).join('')}<td>${s.team}</td><td>${s.set}</td><td class="tm">${s.team === 'A' ? s.a + ' : ' + s.b : s.b + ' : ' + s.a}</td></tr>`;
+  });
+  while (sRows.length < 12) sRows.push('<tr><td></td><td></td><td></td><td></td><td></td><td></td><td class="tm">:</td></tr>');
+  const ri = t => sanc.some(s => s.k === 'RI' && s.team === t);
+  const sanzioni = `<div class="san17"><table><thead><tr><th colspan="4" class="cy big2">SANZIONI</th><th colspan="3" class="ri">RICHIESTE IMPROPRIE<br>SQUADRA <span class="cA s ${ri('A') ? 'x' : ''}">A</span> SQUADRA <span class="cA s ${ri('B') ? 'x' : ''}">B</span></th></tr>
+    <tr><th>A<small>(Avv.)</small></th><th>P<small>(Pen.)</small></th><th>E<small>(Esp.)</small></th><th>S<small>(Squal.)</small></th><th><span class="cA s">A</span><span class="cA s">B</span></th><th>SET</th><th>PUNTEGGIO</th></tr></thead><tbody>${sRows.join('')}</tbody></table>
+    <div class="leg">Riportare la corrispondente abbreviazione: <b>N</b>=giocatore; <b>A</b>=Allenatore; <b>VA</b>=Assistente Allenatore; <b>FT</b>=Fisioterapista; <b>M</b>=Medico; <b>D</b>=Dirigente; <b>RG</b>=Ritardo di Gioco. Per le richieste improprie, barrare con <b>X</b> la lettera nel riquadro in alto.</div></div>`;
+  // osservazioni e approvazione
+  const notes = autoNotes(r);
+  const obsTxt = [...notes.map(H), M.obs ? H(M.obs) : '', M.claim ? '<b>Reclamo:</b> ' + H(M.claim) : ''].filter(Boolean).join('<br>');
+  const sgi = k => M.sig[k] ? `<img class="sigimg" src="${M.sig[k]}" alt="">` : '';
+  const oss = `<div class="oss17"><div class="tab"><span class="cy">OSSERVAZIONI</span></div><div class="otext">${obsTxt || '&nbsp;'}</div></div>`;
+  const appr = `<table class="app17"><thead><tr><th colspan="4" class="cy">APPROVAZIONE</th></tr><tr><th style="width:9%">Arbitri</th><th>Cognome e Nome</th><th style="width:22%">Città</th><th style="width:30%">Firma</th></tr></thead>
+    <tbody><tr><th>1°</th><td>${H(i.ref1)}</td><td></td><td class="sgc">${sgi('ref1')}</td></tr><tr><th>2°</th><td>${H(i.ref2)}</td><td></td><td class="sgc">${sgi('ref2')}</td></tr><tr><th>Seg.</th><td>${H(i.scorer)}</td><td></td><td class="sgc">${sgi('scorer')}</td></tr></tbody></table>
+    <table class="app17 gl"><tbody><tr><td class="nr">1</td><td rowspan="2" class="glab">Giudici<br>di linea</td><td class="nl">2</td></tr><tr><td class="nr">3</td><td class="nl">4</td></tr>
+    <tr><td class="nr cap">${sgi('capA_post')}<span class="cA s">A</span></td><td class="glab">Capitani</td><td class="nl cap"><span class="cA s">B</span>${sgi('capB_post')}</td></tr></tbody></table>`;
+  // risultato finale
+  const regs = r.sets.filter(x => !x.golden);
+  const tot = { A: { T: 0, S: 0, V: 0, P: 0 }, B: { T: 0, S: 0, V: 0, P: 0 } };
+  let durTot = 0;
+  const resRows = Array.from({ length: c.sets }, (_, k) => {
+    const st = regs[k], has = st && (st.prog.length || st.over);
+    const v = t => has ? { T: st.tos[t], S: st.subs[t], V: st.over && st.winner === t ? 1 : 0, P: st.score[t] } : null;
+    const a = v('A'), b = v('B');
+    if (a) ['T', 'S', 'V', 'P'].forEach(x => { tot.A[x] += a[x]; tot.B[x] += b[x]; });
+    const mins = st && st.startTs && st.endTs ? Math.max(1, Math.round((st.endTs - st.startTs) / 60000)) : '';
+    if (mins) durTot += mins;
+    const f = (o, x) => o ? o[x] : '';
+    return `<tr><td>${f(a, 'T')}</td><td>${f(a, 'S')}</td><td>${f(a, 'V')}</td><td class="pp">${f(a, 'P')}</td><td class="setc"><b>${k + 1}</b><span>( ${mins} )</span></td><td class="pp">${f(b, 'P')}</td><td>${f(b, 'V')}</td><td>${f(b, 'S')}</td><td>${f(b, 'T')}</td></tr>`;
+  }).join('');
+  const t0 = regs[0] && regs[0].startTs, t1 = regs.length && regs[regs.length - 1].endTs;
+  const hm = ts => ts ? `${String(new Date(ts).getHours()).padStart(2, '0')} h ${String(new Date(ts).getMinutes()).padStart(2, '0')} min` : '. . h . . min';
+  const durT = t0 && t1 ? Math.round((t1 - t0) / 60000) : null;
+  const ris = `<div class="ris17"><table><thead><tr><th colspan="9" class="cy">RISULTATO FINALE</th></tr>
+    <tr><th colspan="4" class="sqn">SQ. <b>${H(tName('A'))}</b></th><th class="ab2"><span class="cA">A</span><span class="cA">B</span></th><th colspan="4" class="sqn r">SQ. <b>${H(tName('B'))}</b></th></tr>
+    <tr><th>"T"</th><th>S</th><th>V</th><th>P<small>Punti</small></th><th class="setc h">SET <span>minuti</span></th><th>P<small>Punti</small></th><th>V</th><th>S</th><th>"T"</th></tr></thead>
+    <tbody>${resRows}<tr class="tot"><td>${regs.length ? tot.A.T : ''}</td><td>${regs.length ? tot.A.S : ''}</td><td>${regs.length ? tot.A.V : ''}</td><td class="pp">${regs.length ? tot.A.P : ''}</td><td class="setc"><small>Durata incontro</small><span>${durTot || '. . .'} min</span></td><td class="pp">${regs.length ? tot.B.P : ''}</td><td>${regs.length ? tot.B.V : ''}</td><td>${regs.length ? tot.B.S : ''}</td><td>${regs.length ? tot.B.T : ''}</td></tr>
+    <tr class="ore"><td colspan="3"><small>Ora inizio incontro</small>${hm(t0)}</td><td colspan="3"><small>Ora fine incontro</small>${hm(t1)}</td><td colspan="3"><small>Durata totale incontro</small>${durT != null ? Math.floor(durT / 60) + ' h ' + String(durT % 60).padStart(2, '0') + ' min' : '. . h . . min'}</td></tr>
+    <tr class="vince"><td colspan="9"><span>VINCE <b>${r.winner ? H(tName(r.winner)) : ''}</b></span><span class="big">${r.winner ? r.won[r.winner] : ''} : ${r.winner ? r.won[OPP(r.winner)] : ''}</span></td></tr></tbody></table></div>`;
+  // squadre, libero, panchina, firme
+  const plA = M.teams.A.players.filter(p => !p.lib).sort((a, b) => a.n - b.n), plB = M.teams.B.players.filter(p => !p.lib).sort((a, b) => a.n - b.n);
+  const nr = Math.max(12, plA.length, plB.length);
+  const pc = p => p ? `<td class="n ${p.cap ? 'capc' : ''}"><span>${H(p.n)}</span></td><td>${H(p.name)}</td>` : '<td class="n"></td><td></td>';
+  const lbA = M.teams.A.players.filter(p => p.lib), lbB = M.teams.B.players.filter(p => p.lib);
+  const st = (t, code) => { const s = M.teams[t].staff.find(x => roleCode(x.role) === code); return s ? H(s.name) : ''; };
+  const squadre = `<div class="sq17"><table><thead><tr><th colspan="2" class="abh"><span class="cA">A</span></th><th colspan="2" class="cy big2">SQUADRE</th><th colspan="2" class="abh r"><span class="cA">B</span></th></tr>
+    <tr><th class="n">N°</th><th colspan="2">Cognome e Nome</th><th class="n">N°</th><th colspan="2">Cognome e Nome</th></tr></thead>
+    <tbody>${Array.from({ length: nr }, (_, k) => `<tr>${pc(plA[k]).replace('<td>', '<td colspan="2">')}${pc(plB[k]).replace('<td>', '<td colspan="2">')}</tr>`).join('')}
+    <tr><th colspan="6" class="cy">LIBERO</th></tr>${[0, 1].map(k => `<tr>${pc(lbA[k]).replace('<td>', '<td colspan="2">')}${pc(lbB[k]).replace('<td>', '<td colspan="2">')}</tr>`).join('')}
+    <tr><th colspan="6" class="cy">TESSERATI AMMESSI IN PANCHINA</th></tr>${['A', 'VA', 'FT', 'M', 'D'].map(code => `<tr><td colspan="3" class="stf">${st('A', code)}</td><th class="code">${code}</th><td colspan="2" class="stf">${st('B', code)}</td></tr>`).join('')}
+    <tr><th colspan="6" class="cy">FIRME</th></tr>
+    <tr><td colspan="3" class="fsg"><small>Capitano</small>${sgi('capA_pre')}</td><td colspan="3" class="fsg"><small>Capitano</small>${sgi('capB_pre')}</td></tr>
+    <tr><td colspan="3" class="fsg"><small>Allenatore</small>${sgi('allA_pre')}</td><td colspan="3" class="fsg"><small>Allenatore</small>${sgi('allB_pre')}</td></tr></tbody></table></div>`;
+  const ln = (l, v, w) => `<span class="fl"><b>${l}</b><u style="min-width:${w}px">${v || ''}</u></span>`;
+  const head = `<div class="top17"><div class="hb">
+     <div class="hr">${ln('CAMPIONATO SERIE', H(i.camp), 280)}${ln('GARA N°', H(i.num), 110)}${ln('MANIFESTAZIONE', '', 300)}</div>
+     <div class="hr"><span class="fl"><b>DIVISIONE:</b></span><span class="fl"><b>MASCHILE</b>${box(div === 'M')}</span><span class="fl"><b>FEMMINILE</b>${box(div === 'F')}</span>${ln('FASE', H([i.girone ? 'Girone ' + i.girone : '', i.giornata ? 'giornata ' + i.giornata : ''].filter(Boolean).join(' · ')), 420)}</div>
+     <div class="hr">${ln('LUOGO', H(i.city), 230)}${ln('CAMPO', H(i.place), 230)}${ln('DATA', fmtDate(i.date), 110)}${ln('ORA', H(i.time), 90)}</div>
+     <div class="hr sqr"><span class="cA">A</span><u>${H(tName('A'))}</u><b>SQUADRE</b><u class="r">${H(tName('B'))}</u><span class="cA">B</span></div></div>
+    <div class="ttl17"><div>REFERTO<br>DI GARA</div><small>PALLAVOLO</small></div></div>`;
+  const sheet = `<div class="sheetwrap"><div class="sheet f17" id="sheet">${head}${rows12}
+    <div class="low17"><div class="lowL">${set5Block17(r)}<div class="bot17">${sanzioni}<div class="mid17">${oss}${appr}</div>${ris}</div></div>${squadre}</div></div></div>`;
+  return sheet;
 }
 
 // ---------- NORME ----------
@@ -1320,17 +1611,19 @@ function vNorme() {
     <li><b>Velo:</b> chi è al servizio non può alzare le mani sopra la testa finché la palla non supera la rete.</li>
     <li><b>Soffitto e strutture:</b> palla che li tocca dopo il 1° o 2° tocco ed è ancora giocabile dalla stessa squadra: si continua.</li>
     <li><b>Doppia in palleggio:</b> fallo solo se il palleggio di 1° o 2° tocco va volontariamente nel campo avversario.</li>
-    <li><b>Protocollo:</b> riscaldamento ufficiale condiviso di 10 minuti.</li></ul>
+    <li><b>Protocollo:</b> riscaldamento ufficiale condiviso di 10 minuti.</li>
+    <li><b>Attacco spinto, trattenuto o lanciato:</b> maggiore attenzione arbitrale nel sanzionarlo.</li>
+    <li><b>Nota:</b> l'art. 7 del regolamento indica ancora 6 cambi a set; prevale il comunicato più recente (08/11/2026) con 8 sostituzioni, che l'app conta per set.</li></ul>
     <h2>Misti CSEN Roma</h2><ul>
-    <li><b>4+2</b> (rete 2,35): da 1 a 4 uomini. Libero solo con almeno 2 donne in campo e nel sestetto; con 2 sole donne, una donna può essere sostituita solo da un Libero donna; un Libero donna al posto di un uomo non conta come donna. Violazione = fallo di posizione.</li>
-    <li><b>3+3</b> (rete 2,35): da 1 a 3 uomini, mai 3 uomini in prima linea. Se succede bisogna sostituire, altrimenti la squadra è incompleta e perde il set.</li></ul></div>
+    <li><b>4+2</b> (rete 2,35): da 1 a 4 uomini. Libero solo con almeno 2 donne in campo e nel sestetto; con 2 sole donne, una donna può essere sostituita solo da un Libero donna; un Libero donna al posto di un uomo non conta come donna. Violazione = fallo di posizione: punto e servizio agli avversari; i punti già fatti restano validi tranne l'ultimo.</li>
+    <li><b>3+3</b> (rete 2,35): da 1 a 3 uomini, mai 3 uomini in prima linea (zone II, III, IV). Il Libero di qualsiasi sesso può sostituire uomini o donne, sempre con 1–3 uomini in campo. Violazione = fallo di posizione; se la formazione non si può correggere la squadra è incompleta e perde il set.</li></ul></div>
   <div class="card stack"><h2>Giovanili CSEN Roma 2026/27</h2><ul>
     <li>3 set obbligatori a 25, rally point. Classifica 3-0 → 3 punti, 2-1 → 2 e 1.</li>
-    <li>Fuoriquota illimitati in lista, uno solo in campo. Il Libero fuoriquota (U14 e oltre) è esonerato.</li>
+    <li>Fuoriquota (nati nell'anno indicato) illimitati in lista, uno solo in campo alla volta. Il Libero fuoriquota (U14 e oltre) non conta in questo limite. Nessuna eccezione per i nati prima.</li>
     <li>U12 e U13: niente Libero, battuta dal basso, pallone Volley Scuola.</li>
     <li>U17 e U19 maschili: primo tocco in ricezione con le sole tecniche ammesse.</li>
     <li>U12–U15: l'arbitro lo fornisce la squadra di casa, che entro il giorno dopo invia risultato, parziali e foto di referto e liste a risultati@csenromapallavolo.it.</li></ul></div>
-  <div class="card stack"><h2>CSEN in Volley Nazionale 2025/26</h2><ul>
+  <div class="card stack"><h2>CSEN in Volley Nazionale 2025/26</h2><p class="small muted" style="margin:0">Il regolamento nazionale 2026/27 non risulta ancora pubblicato.</p><ul>
     <li>Gare al meglio dei 3 set, i primi due a 25 e il terzo a 15. Classifica 2-0 → 3 punti, 2-1 → 2 e 1.</li>
     <li>Massimo 14 atleti a referto con due Libero; minimo 8 atleti (giovanili) o 9 (open) presenti. Sostituzioni secondo FIPAV.</li>
     <li>Ritardo 11′–29′: 20 €. Oltre 30′ o non tesserato: gara persa 2-0 e 20 €. Reclami scritti entro 10′ dalla fine, tassa 50 €.</li>
@@ -1464,6 +1757,7 @@ const ACT = {
     modal(`<h2>Golden set</h2><p>Set di spareggio a ${M.cfg.goldenPts}. Le formazioni ripartono da quelle dell'ultimo set: puoi modificarle subito dopo con Annulla, oppure confermare.</p><div class="foot"><button class="btn" data-a="close">Annulla</button><button class="btn pri" id="gk">Inizia golden set</button></div>`, el => el.querySelector('#gk').onclick = () => { closeModal(); ACT.startSet(); });
   },
   pt(d) { push({ t: 'pt', team: d.t }); },
+  fallo(d) { push({ t: 'pt', team: OPP(d.t), why: 'FP' }); toast(`Fallo di posizione: punto e servizio a ${tName(OPP(d.t))}. Correggi la formazione con una sostituzione.`); },
   to(d) {
     const st = stNow(); if (st.tos[d.t] >= M.cfg.tos) { toast('Time-out esauriti.'); return; }
     push({ t: 'to', team: d.t });
@@ -1568,6 +1862,8 @@ const ACT = {
   moreDlg() {
     const opt = (x, t, l, s) => `<button class="opt" data-x="${x}" data-t="${t || ''}"><b>${l}</b><span>${s}</span></button>`;
     modal(`<h2>Altre azioni</h2><div class="opts">
+      ${opt('fp', 'A', 'Fallo di posizione · ' + H(tName('A')), 'Punto e servizio a ' + H(tName('B')) + ' (anche per le violazioni delle regole dei misti).')}
+      ${opt('fp', 'B', 'Fallo di posizione · ' + H(tName('B')), 'Punto e servizio a ' + H(tName('A')) + ' (anche per le violazioni delle regole dei misti).')}
       ${opt('lose', 'A', 'Perdita del set · ' + H(tName('A')), 'Squadra incompleta: agli avversari i punti per chiudere il set.')}
       ${opt('lose', 'B', 'Perdita del set · ' + H(tName('B')), 'Squadra incompleta: agli avversari i punti per chiudere il set.')}
       ${opt('loseM', 'A', 'Perdita della gara · ' + H(tName('A')), 'Rifiuto di giocare, squalifica senza sostituti o altra causa.')}
@@ -1576,6 +1872,7 @@ const ACT = {
       <div class="foot"><button class="btn" data-a="close">Chiudi</button></div>`, el => {
       el.querySelectorAll('[data-x]').forEach(b => b.onclick = () => {
         const x = b.dataset.x, t = b.dataset.t;
+        if (x === 'fp') { closeModal(); ACT.fallo({ t }); return; }
         if (x === 'stop') {
           modal(`<h2>Termina la gara</h2><label class="f">Motivo<input id="why" class="in" placeholder="Es. impianto inagibile"></label><div class="foot"><button class="btn" data-a="close">Annulla</button><button class="btn pri" id="ok">Termina</button></div>`, e2 => e2.querySelector('#ok').onclick = () => { const w = e2.querySelector('#why').value; closeModal(); push({ t: 'stop', why: w }); });
         } else {
@@ -1618,20 +1915,20 @@ async function makePdf() {
     await loadScript('html2canvas.min.js'); await loadScript('jspdf.umd.min.js');
     if (document.fonts && document.fonts.ready) await document.fonts.ready;
     const sheets = [...document.querySelectorAll('.sheet')];
-    const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4', compress: true });
+    const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: sheets[0] && sheets[0].classList.contains('f17') ? 'a3' : 'a4', compress: true });
     for (let i = 0; i < sheets.length; i++) {
       const pp = document.getElementById('pp'); if (pp) pp.textContent = `Pagina ${i + 1} di ${sheets.length}…`;
       const el = sheets[i];
       const canvas = await window.html2canvas(el, { scale: 3, backgroundColor: '#ffffff', logging: false, windowWidth: 1280, onclone: d => { d.querySelectorAll('.sheet').forEach(x => { x.classList.add('pdfmode'); x.style.boxShadow = 'none'; x.style.borderRadius = '0'; }); } });
       const img = canvas.toDataURL('image/png');
-      const pw = 297, ph = 210, mg = 7; let w = pw - 2 * mg, h = canvas.height * w / canvas.width;
+      const a3 = el.classList.contains('f17'); const pw = a3 ? 420 : 297, ph = a3 ? 297 : 210, mg = 7; let w = pw - 2 * mg, h = canvas.height * w / canvas.width;
       if (h > ph - 2 * mg) { h = ph - 2 * mg; w = canvas.width * h / canvas.height; }
-      if (i) pdf.addPage('a4', 'landscape');
+      if (i) pdf.addPage(a3 ? 'a3' : 'a4', 'landscape');
       pdf.addImage(img, 'PNG', (pw - w) / 2, mg, w, h, undefined, 'FAST');
     }
     const blob = pdf.output('blob'), file = new File([blob], name, { type: 'application/pdf' }), url = URL.createObjectURL(blob);
     const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
-    modal(`<h2>PDF pronto</h2><p style="margin:0"><b>${H(name)}</b><br><span class="small muted">${sheets.length} pagine: referto e liste gara delle due squadre.</span></p>
+    modal(`<h2>PDF pronto</h2><p style="margin:0"><b>${H(name)}</b><br><span class="small muted">${sheets.length} pagine: referto${document.querySelector('.f17') ? ' (A3)' : ''} e liste gara delle due squadre (A4).</span></p>
       <p class="small muted" style="margin:0">${canShare ? 'Con “Condividi” puoi stamparlo (Stampa), salvarlo (Salva su File) o inviarlo via Mail o WhatsApp.' : 'Apri il PDF: da lì puoi salvarlo o stamparlo.'}</p>
       <div class="foot"><button class="btn" data-a="close">Chiudi</button><a class="btn" href="${url}" target="_blank" rel="noopener" download="${H(name)}">Apri PDF</a>${canShare ? '<button class="btn pri" id="sh">Condividi / Stampa</button>' : ''}</div>`, el => {
       const b = el.querySelector('#sh'); if (b) b.onclick = () => navigator.share({ files: [file], title: name }).catch(e => { if (e && e.name !== 'AbortError') toast('Condivisione non riuscita: usa “Apri PDF”.'); });
