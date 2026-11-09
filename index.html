@@ -95,8 +95,26 @@ table.t td input, table.t td select { border: 1px solid transparent; background:
 table.t td input:hover, table.t td select:hover { border-color: var(--line); }
 table.t td input:focus { background: var(--surface2); border-color: var(--line); }
 td.num input { width: 52px; text-align: center; font-family: var(--fd); font-size: 19px; font-weight: 700; }
-td.yr input { width: 66px; }
-td.sx select { width: 54px; }
+td.yr input { width: 108px; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+table.t td input.bad { border-color: var(--bad); background: var(--badBg); color: var(--bad); }
+td.sx { width: 78px; }
+table.t td.nmc input { min-width: 140px; }
+table.t td.num { min-width: 54px; }
+table.t td.num input { min-width: 48px; }
+table.t td.tes input { min-width: 92px; }
+table.t td.yr { min-width: 112px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface2); }
+.seg button { border: 0; background: transparent; color: var(--muted); font-weight: 700; width: 36px; height: 32px; cursor: pointer; font-size: 15px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button.on.F { background: var(--tB); color: #fff; }
+.seg button.on.M { background: var(--tA); color: #fff; }
+table.t th.ck { text-align: center; font-size: 11px; line-height: 1.1; }
+table.t th.ck small { font-size: 11px; color: var(--ink); font-weight: 800; }
+table.t td select.sel { background: var(--surface2); border: 1px solid var(--line); color: var(--ink); -webkit-appearance: none; appearance: none; padding-right: 26px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 14px) 52%, calc(100% - 9px) 52%; background-size: 5px 5px; background-repeat: no-repeat; }
+td.role { width: 36%; min-width: 150px; }
+select option, select optgroup { background: var(--surface); color: var(--ink); }
 td.ck { text-align: center; width: 34px; }
 td.ck input { width: 20px; height: 20px; accent-color: var(--accent); }
 .x { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 18px; padding: 4px 8px; border-radius: 6px; }
@@ -400,6 +418,7 @@ function isLib(m, team, n) { const p = pl(m, team, n); return !!(p && p.lib); }
 function rot(a) { return [a[1], a[2], a[3], a[4], a[5], a[0]]; }
 function plName(m, team, n) { const p = pl(m, team, n); return p ? p.name : ''; }
 
+function okDate(v) { v = String(v); if (/^\d{4}$/.test(v)) return true; const m = v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/); if (!m) return false; const dt = new Date(+m[3], +m[2] - 1, +m[1]); return dt.getDate() === +m[1] && dt.getMonth() === +m[2] - 1 && +m[3] > 1900; }
 function yr(p) { const x = String((p && p.year) || '').match(/(19|20)\d{2}/); return x ? +x[0] : null; }
 function isFq(m, p) { const c = m.cfg, y = yr(p); return !!(c.minYear && y && y < c.minYear); }
 
@@ -419,6 +438,7 @@ function rosterErrors(m, team) {
     if (+p.n < 0 || +p.n > 99) e.push(`Numero ${p.n} non valido (0–99).`);
     if (c.mixed && !p.sex) e.push(`N. ${p.n}: indicare il sesso (campionato misto).`);
     const y = yr(p);
+    if (p.year && !okDate(p.year)) e.push(`N. ${p.n}: data di nascita incompleta o non valida (usa gg/mm/aaaa).`);
     if (c.minYear && !y) e.push(`N. ${p.n}: indicare la data (o l'anno) di nascita.`);
     if (c.minYear && y && c.fqYear && y < c.fqYear) {
       if (!(p.lib && c.fqLibExempt && y === c.fqYear - 1)) e.push(`N. ${p.n}: nato nel ${y}, fuori dai limiti d'età (fuoriquota ammessi: nati nel ${c.fqYear}).`);
@@ -849,21 +869,22 @@ function vTeam(t) {
   const T = M.teams[t], c = M.cfg, errs = rosterErrors(M, t);
   const ps = T.players.map((p, i) => `<tr>
     <td class="num"><input inputmode="numeric" data-f="teams.${t}.players.${i}.n" value="${H(p.n)}" aria-label="Numero"></td>
-    <td><input data-f="teams.${t}.players.${i}.name" value="${H(p.name)}" placeholder="Cognome Nome" aria-label="Cognome e nome"></td>
-    <td class="yr"><input inputmode="numeric" data-f="teams.${t}.players.${i}.year" value="${H(p.year)}" placeholder="gg/mm/aaaa" aria-label="Data di nascita"></td>
-    <td class="sx"><select data-f="teams.${t}.players.${i}.sex" aria-label="Sesso"><option value=""></option><option ${p.sex === 'F' ? 'selected' : ''}>F</option><option ${p.sex === 'M' ? 'selected' : ''}>M</option></select></td>
-    <td><input data-f="teams.${t}.players.${i}.card" value="${H(p.card)}" placeholder="Tessera CSEN" aria-label="Tessera"></td>
+    <td class="nmc"><input data-f="teams.${t}.players.${i}.name" value="${H(p.name)}" placeholder="Cognome Nome" aria-label="Cognome e nome"></td>
+    <td class="yr"><input inputmode="numeric" maxlength="10" autocomplete="off" data-date="1" class="${p.year && !validDate(p.year) ? 'bad' : ''}" data-f="teams.${t}.players.${i}.year" value="${H(p.year)}" placeholder="gg/mm/aaaa" aria-label="Data di nascita"></td>
+    <td class="sx"><span class="seg" role="group" aria-label="Sesso">${['F', 'M'].map(v => `<button type="button" class="${p.sex === v ? 'on ' + v : ''}" data-a="sex" data-t="${t}" data-i="${i}" data-v="${v}" aria-pressed="${p.sex === v}">${v}</button>`).join('')}</span></td>
+
     <td class="ck"><input type="checkbox" data-f="teams.${t}.players.${i}.lib" ${p.lib ? 'checked' : ''} aria-label="Libero"></td>
     <td class="ck"><input type="checkbox" data-f="teams.${t}.players.${i}.cap" ${p.cap ? 'checked' : ''} aria-label="Capitano"></td>
+    <td class="tes"><input data-f="teams.${t}.players.${i}.card" value="${H(p.card)}" placeholder="Tessera CSEN" aria-label="Tessera"></td>
     <td><button class="x" data-a="delP" data-t="${t}" data-i="${i}" aria-label="Rimuovi">×</button></td></tr>`).join('');
-  const sf = T.staff.map((s, i) => `<tr><td><select data-f="teams.${t}.staff.${i}.role">${ROLES.map(r => `<option ${s.role === r ? 'selected' : ''}>${H(r)}</option>`).join('')}</select></td>
+  const sf = T.staff.map((s, i) => `<tr><td class="role"><select class="sel" data-f="teams.${t}.staff.${i}.role" aria-label="Ruolo">${ROLES.map(r => `<option ${s.role === r ? 'selected' : ''}>${H(r)}</option>`).join('')}</select></td>
     <td><input data-f="teams.${t}.staff.${i}.name" value="${H(s.name)}" placeholder="Cognome Nome"></td><td><input data-f="teams.${t}.staff.${i}.card" value="${H(s.card)}" placeholder="Tessera"></td>
     <td><button class="x" data-a="delS" data-t="${t}" data-i="${i}" aria-label="Rimuovi">×</button></td></tr>`).join('');
   const nl = T.players.length, nlib = T.players.filter(p => p.lib).length;
   return `<div class="card stack" style="border-top:5px solid var(--t${t})">
     <div class="row" style="justify-content:space-between"><span class="eyebrow"><span class="sw ${t}"></span>${t === 'A' ? 'Squadra A · ospitante' : 'Squadra B · ospite'}</span><span class="small muted">${nl}/${c.maxRoster} atleti · ${nlib} Libero</span></div>
     <label class="f">Nome squadra<input data-f="teams.${t}.name" value="${H(T.name)}" placeholder="Società / squadra"></label>
-    <div class="scroll"><table class="t"><thead><tr><th>N°</th><th>Cognome e nome</th><th>Nascita</th><th>Sesso</th><th>N° tessera</th><th title="Libero">L</th><th title="Capitano">K</th><th></th></tr></thead><tbody>${ps}</tbody></table></div>
+    <div class="scroll"><table class="t"><thead><tr><th>N°</th><th>Cognome e nome</th><th>Nascita</th><th>Sesso</th><th class="ck" title="Libero">Libero<br><small>L</small></th><th class="ck" title="Capitano">Cap.<br><small>K</small></th><th>N° tessera</th><th></th></tr></thead><tbody>${ps}</tbody></table></div>
     <div class="row"><button class="btn sm" data-a="addP" data-t="${t}">+ Atleta</button><button class="btn sm" data-a="pasteDlg" data-t="${t}">Incolla elenco</button><button class="btn sm" data-a="saveTeam" data-t="${t}">Salva in archivio</button><button class="btn sm" data-a="loadTeam" data-t="${t}">Carica da archivio</button></div>
     ${errs.length ? `<div class="msg bad">${errs.map(H).join('<br>')}</div>` : ''}
     <div class="eyebrow">Staff</div>
@@ -1256,6 +1277,7 @@ const ACT = {
   delMatch() { ask('Eliminare la gara?', 'La gara e il suo referto verranno cancellati da questo dispositivo.', 'Elimina', () => { LS.del('rc_m_' + M.id); IDX = IDX.filter(x => x.id !== M.id); LS.set('rc_idx', IDX); ACT.home(); }, true); },
   addP(d) { const T = M.teams[d.t]; const nx = T.players.reduce((a, p) => Math.max(a, +p.n || 0), 0) + 1; T.players.push({ n: nx, name: '', year: '', sex: '', card: '', lib: false, cap: false }); if (M.sig['cap' + d.t + '_pre']) M.autoNotes.push(`${tName(d.t)}: aggiunto atleta n. ${nx} dopo le firme pre-gara.`); save(); render(); },
   delP(d) { const T = M.teams[d.t]; const p = T.players[+d.i]; ask('Rimuovere l\'atleta?', `N. ${H(p.n)} ${H(p.name)}`, 'Rimuovi', () => { T.players.splice(+d.i, 1); if (M.sig['cap' + d.t + '_pre']) M.autoNotes.push(`${tName(d.t)}: rimosso atleta n. ${p.n} dopo le firme pre-gara.`); save(); render(); }); },
+  sex(d) { const p = M.teams[d.t].players[+d.i]; p.sex = p.sex === d.v ? '' : d.v; save(); render(); },
   addS(d) { M.teams[d.t].staff.push({ role: M.teams[d.t].staff.some(x => x.role === 'Dirigente') ? 'Allenatore' : 'Dirigente', name: '', card: '' }); save(); render(); },
   delS(d) { M.teams[d.t].staff.splice(+d.i, 1); save(); render(); },
   pasteDlg(d) {
@@ -1266,7 +1288,7 @@ const ACT = {
       el.querySelector('#pk').onclick = () => {
         const rows = el.querySelector('#pt').value.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
         const out = rows.map(l => { const f = l.split(/\t|;|,(?=\s*\S)/).map(x => x.trim()); const rest = f.slice(5).map(x => x.toUpperCase());
-          return { n: f[0].replace(/\D/g, ''), name: f[1] || '', year: (f[2] || '').trim(), sex: /^[MF]$/i.test(f[3] || '') ? f[3].toUpperCase() : '', card: f[4] || '', lib: rest.includes('L'), cap: rest.includes('C') || rest.includes('K') }; }).filter(p => p.n !== '');
+          return { n: f[0].replace(/\D/g, ''), name: f[1] || '', year: normDate(f[2] || ''), sex: /^[MF]$/i.test(f[3] || '') ? f[3].toUpperCase() : '', card: f[4] || '', lib: rest.includes('L'), cap: rest.includes('C') || rest.includes('K') }; }).filter(p => p.n !== '');
         const T = M.teams[d.t]; if (el.querySelector('#pr').checked) T.players = out; else T.players.push(...out);
         save(); closeModal(); render(); toast(`${out.length} atleti importati.`);
       };
@@ -1497,7 +1519,33 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal();
 });
 const RERENDER = /^(cfg\.|teams\.[AB]\.players\.\d+\.(lib|cap|sex|year|n)$|draft\.|tossDraft\.|teams\.[AB]\.name)/;
+// data di nascita: gg/mm/aaaa con le barre inserite automaticamente
+function maskDate(v) {
+  const d = String(v).replace(/\D/g, '').slice(0, 8);
+  if (d.length <= 2) return d;
+  if (d.length <= 4) return d.slice(0, 2) + '/' + d.slice(2);
+  return d.slice(0, 2) + '/' + d.slice(2, 4) + '/' + d.slice(4);
+}
+function normDate(v) {
+  v = String(v || '').trim();
+  const m = v.match(/^(\d{1,2})[\/.\- ](\d{1,2})[\/.\- ](\d{2,4})$/);
+  if (m) { let y = m[3]; if (y.length === 2) y = (+y > 30 ? '19' : '20') + y; return m[1].padStart(2, '0') + '/' + m[2].padStart(2, '0') + '/' + y; }
+  if (/^\d{8}$/.test(v)) return maskDate(v);
+  return v;
+}
+function validDate(v) {
+  v = String(v || '');
+  if (/^\d{4}$/.test(v)) return true;
+  const m = v.match(/^(\d{2})\/(\d{2})\/(\d{4})$/); if (!m) return false;
+  const d = +m[1], mo = +m[2], y = +m[3], dt = new Date(y, mo - 1, d);
+  return dt.getFullYear() === y && dt.getMonth() === mo - 1 && dt.getDate() === d && y > 1900 && y <= new Date().getFullYear();
+}
 function onField(e) {
+  if (e.target.dataset.date) {
+    const el = e.target, f = maskDate(el.value);
+    if (el.value !== f) { el.value = f; try { el.setSelectionRange(f.length, f.length); } catch (x) { } }
+    el.classList.toggle('bad', e.type === 'change' && f !== '' && !validDate(f));
+  }
   const el = e.target; const p = el.dataset.f; if (!p || !M) return;
   let v = el.type === 'checkbox' ? el.checked : el.value;
   if (el.dataset.n) v = v === '' ? null : +v;
