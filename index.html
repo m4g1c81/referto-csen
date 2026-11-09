@@ -96,6 +96,9 @@ textarea { min-height: 80px; resize: vertical; }
 .msg.warn { background: var(--warnBg); color: var(--warn); }
 .msg.bad { background: var(--badBg); color: var(--bad); }
 .msg.ok { background: var(--okBg); color: var(--ok); }
+.msg.hint { background: color-mix(in srgb, var(--lib) 22%, var(--surface)); color: var(--ink); border-left: 5px solid var(--lib); display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.msg.hint .btn { background: var(--lib); color: #2a1d00; border-color: transparent; font-weight: 700; }
+.chip.lf.on { box-shadow: inset 0 0 0 2px var(--c); background: color-mix(in srgb, var(--c) 14%, var(--surface)); }
 .pill { display: inline-block; border-radius: 99px; padding: 2px 9px; font-size: 12px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; background: var(--surface2); border: 1px solid var(--line); }
 .pill.live { background: var(--accent); color: var(--accentInk); border-color: transparent; }
 .pill.done { background: var(--okBg); color: var(--ok); border-color: transparent; }
@@ -940,7 +943,7 @@ if (typeof module !== 'undefined') module.exports = { PRESETS, SANC, newMatch, s
 <script>
 // ================= INTERFACCIA =================
 const PWA = !!window.__PWA__;
-const APP_VER = '2.4 · 09/11/2026';
+const APP_VER = '2.5 · 09/11/2026';
 // app aperta dall'icona su iPhone/iPad: lì Safari ignora window.print()
 const IOS_APP = !!(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)));
 const $app = document.getElementById('app');
@@ -1160,7 +1163,7 @@ function pitchHTML(L, R, cell, capL, capR) {
 }
 function tokenHTML(t, n, p, o) {
   if (!p) return `<span class="tok empty">+</span>`;
-  return `<span class="tok ${o.lib ? 'lib' : ''}" style="--c:var(--t${t})">${H(n)}${p.cap ? '<span class="k">K</span>' : ''}${o.serve ? '<span class="ball" title="Al servizio"></span>' : ''}${o.fq ? '<span class="fq">FQ</span>' : ''}</span>`;
+  return `<span class="tok ${o.lib ? 'lib' : ''}" style="--c:var(--${o.lib ? 'lib' : 't' + t})">${H(n)}${p.cap ? '<span class="k">K</span>' : ''}${o.serve ? '<span class="ball" title="Al servizio"></span>' : ''}${o.fq ? '<span class="fq">FQ</span>' : ''}</span>`;
 }
 function zoneHTML(t, k, d, side) {
   const n = d[t][k], p = n !== '' && n != null ? pl(M, t, n) : null;
@@ -1206,6 +1209,32 @@ function slotHTML(t, i, st, side) {
   return `<button type="button" class="zc s${side}" data-a="slot" data-t="${t}" data-n="${H(n)}" aria-label="${lib ? 'Libero ' : ''}numero ${H(n)} in zona ${POS[i]}">
     <span class="zl">${POS[i]}</span>${tokenHTML(t, n, p, { lib, serve: st.serve === t && i === 0, fq: isFq(M, p) })}<span class="tn">${lib ? 'Libero' : H((p.name || '').split(' ')[0])}${sx}</span></button>`;
 }
+// giocatori per cui il Libero entra di solito: scelti dall'utente + già sostituiti dal Libero nella gara
+function libCandidates(t, st) {
+  const cand = new Set(((M.libFor || {})[t] || []).map(String));
+  for (let k = 0; k <= st.si && k < M.sets.length; k++) {
+    const ss = k === st.si ? st : simSet(M, k);
+    ss.libLog[t].forEach(x => { if (!x.auto && !isLib(M, t, x.out)) cand.add(String(x.out)); });
+  }
+  return cand;
+}
+function libHints(st) {
+  const out = [];
+  if (!M.cfg.libero) return out;
+  const evs = M.sets[st.si].ev, lastLib = evs.length && evs[evs.length - 1].t === 'lib';
+  ['A', 'B'].forEach(t => {
+    const libs = M.teams[t].players.filter(p => p.lib && !st.exp[t].includes(String(p.n)) && !st.disq[t].includes(String(p.n))).map(p => String(p.n));
+    if (!libs.length || st.court[t].some(n => isLib(M, t, n))) return;
+    const cand = libCandidates(t, st);
+    if (!cand.size) return;
+    [4, 5, 0].forEach(k => {
+      const n = st.court[t][k]; if (!cand.has(n)) return;
+      const L = libs.find(l => !canLib(M, st, t, n, l) && !compErrors(M, t, Object.assign(st.court[t].slice(), { [k]: l }), st.base[t]).length);
+      if (L) out.push({ t, k, n, lib: L, wait: lastLib });
+    });
+  });
+  return out;
+}
 function vLive(r, st) {
   const L = leftTeam(M, st), R = OPP(L), c = M.cfg;
   const dots = (used, max) => `<span class="dots">${Array.from({ length: max }, (_, k) => `<i class="${k < used ? 'u' : ''}"></i>`).join('')}</span>`;
@@ -1223,11 +1252,12 @@ function vLive(r, st) {
   const tbNote = st.tb && Math.max(st.score.A, st.score.B) === c.tbSwitchAt && !(M.toss.noSideChange || !c.sideChange) ? `<div class="msg warn">Tie-break: a ${c.tbSwitchAt} punti le squadre cambiano campo (già invertite sullo schermo).</div>` : '';
   const done = r.sets.filter(s => s.over && !s.golden).map(s => `<span>${s.score[L]}-${s.score[R]}</span>`).join('');
   const log = st.log.slice().reverse().slice(0, 30).map(l => `<div><span class="s">${l.after[L]}-${l.after[R]}</span><span><span class="sw ${l.team || ''}"></span>${l.t === 'pt' && !/Fallo/.test(l.txt) ? 'Punto ' + H(tName(l.team)) : H(l.txt)}${l.t !== 'pt' && l.team ? ' · ' + H(tName(l.team)) : ''}</span></div>`).join('');
+  const hints = libHints(st);
   const auto = st.autoLib.filter(a => a.ev === (M.sets[st.si].ev.length - 1)).map(a => `<div class="msg warn">Il Libero ${H(a.lib)} (${H(tName(a.team))}) è arrivato in zona IV: rientrato in automatico il n. ${H(a.back)}.</div>`).join('');
   return `<div class="live">
     <div class="board">${tbBlock(L, 'L')}<div class="mid"><span class="sn">${st.golden ? 'Golden set' : st.tb ? 'Tie-break' : 'Set ' + (st.si + 1)}</span><span class="sw2">${r.won[L]} – ${r.won[R]}</span><span class="sn">a ${st.target}</span></div>${tbBlock(R, 'R')}</div>
     <div class="arena">${cons(L)}${pitchHTML(L, R, (t, k, side) => slotHTML(t, k, st, side), st.serve === L ? 'Al servizio' : 'In ricezione', st.serve === R ? 'Al servizio' : 'In ricezione')}${cons(R)}</div>
-    ${warns.length || tbNote || auto ? `<div class="warnbar">${warns.join('')}${tbNote}${auto}</div>` : ''}
+    ${warns.length || tbNote || auto || hints.length ? `<div class="warnbar">${warns.join('')}${tbNote}${auto}${hints.map(h => `<div class="msg hint"><span><b>Libero ${H(tName(h.t))}:</b> ${h.wait ? `dopo la prossima azione può entrare il n. ${H(h.lib)} al posto del n. ${H(h.n)} (zona ${POS[h.k]})` : `può entrare il n. ${H(h.lib)} al posto del n. ${H(h.n)} (zona ${POS[h.k]})`}</span>${h.wait ? '' : `<button class="btn sm" data-a="libGo" data-t="${h.t}" data-out="${H(h.n)}" data-in="${H(h.lib)}">Fai entrare il Libero</button>`}</div>`).join('')}</div>` : ''}
     <div class="logbar"><div class="stack" style="gap:8px"><button class="btn" data-a="undo">↶ Annulla</button><button class="btn sm" data-a="moreDlg">Altro…</button></div>
       <div class="log" aria-live="polite">${log || '<div class="muted">Il set è iniziato alle ' + fmtTime(st.startTs) + '. Tocca PUNTO per la squadra che vince lo scambio.</div>'}</div>
       <div class="stack" style="gap:6px;align-items:flex-end"><span class="eyebrow">Set giocati</span><div class="setlist">${done || '<span>—</span>'}</div></div></div>
@@ -1757,6 +1787,7 @@ const ACT = {
     modal(`<h2>Golden set</h2><p>Set di spareggio a ${M.cfg.goldenPts}. Le formazioni ripartono da quelle dell'ultimo set: puoi modificarle subito dopo con Annulla, oppure confermare.</p><div class="foot"><button class="btn" data-a="close">Annulla</button><button class="btn pri" id="gk">Inizia golden set</button></div>`, el => el.querySelector('#gk').onclick = () => { closeModal(); ACT.startSet(); });
   },
   pt(d) { push({ t: 'pt', team: d.t }); },
+  libGo(d) { push({ t: 'lib', team: d.t, out: String(d.out), in: String(d.in) }); },
   fallo(d) { push({ t: 'pt', team: OPP(d.t), why: 'FP' }); toast(`Fallo di posizione: punto e servizio a ${tName(OPP(d.t))}. Correggi la formazione con una sostituzione.`); },
   to(d) {
     const st = stNow(); if (st.tos[d.t] >= M.cfg.tos) { toast('Time-out esauriti.'); return; }
@@ -1830,8 +1861,18 @@ const ACT = {
       const pre = d.sel && (String(d.sel) === o.out);
       return `<button class="opt" data-i="${i}" ${e ? 'disabled' : ''} style="${pre && !e ? 'border-color:var(--accent)' : ''}"><b>${H(o.l)}</b>${e ? `<span>${H(e)}</span>` : ''}</button>`;
     }).join('');
-    modal(`<div class="eyebrow">${H(tName(t))}</div><h2>Libero</h2><p class="small muted" style="margin:0">Le sostituzioni del Libero sono illimitate e non contano tra i cambi. Tra due sostituzioni del Libero deve esserci un'azione di gioco completata.</p><div class="opts">${html}</div><div class="foot"><button class="btn" data-a="close">Annulla</button></div>`, el => {
+    const chosen = new Set(((M.libFor || {})[t] || []).map(String)), learned = libCandidates(t, st);
+    const regs = M.teams[t].players.filter(p => !p.lib).sort((a, b) => a.n - b.n);
+    modal(`<div class="eyebrow">${H(tName(t))}</div><h2>Libero</h2><p class="small muted" style="margin:0">Le sostituzioni del Libero sono illimitate e non contano tra i cambi. Tra due sostituzioni del Libero deve esserci un'azione di gioco completata.</p><div class="opts">${html}</div>
+      <div><div class="eyebrow">Suggerimenti: il Libero entra al posto di</div><p class="small muted" style="margin:4px 0 0">Quando uno di questi giocatori è in seconda linea, sopra il campo compare il suggerimento per far entrare il Libero. I giocatori già sostituiti dal Libero in questa gara sono aggiunti in automatico.</p>
+      <div class="chips">${regs.map(p => `<button type="button" class="chip ${t} lf ${chosen.has(String(p.n)) || learned.has(String(p.n)) ? 'on' : ''}" data-lf="${H(p.n)}" aria-pressed="${chosen.has(String(p.n))}"><b>${H(p.n)}</b><span>${H((p.name || '').split(' ')[0])}${!chosen.has(String(p.n)) && learned.has(String(p.n)) ? ' · auto' : ''}</span></button>`).join('')}</div></div>
+      <div class="foot"><button class="btn" data-a="close">Chiudi</button></div>`, el => {
       el.querySelectorAll('.opt').forEach(b => b.onclick = () => { const o = opts[+b.dataset.i]; closeModal(); push({ t: 'lib', team: t, out: o.out, in: o.in }); });
+      el.querySelectorAll('[data-lf]').forEach(b => b.onclick = () => {
+        M.libFor = M.libFor || {}; const a = new Set((M.libFor[t] || []).map(String)), n = b.dataset.lf;
+        if (a.has(n)) a.delete(n); else a.add(n);
+        M.libFor[t] = [...a]; save(); b.classList.toggle('on', a.has(n) || learned.has(n)); b.setAttribute('aria-pressed', a.has(n)); render();
+      });
     });
   },
   sanDlg(d) {
