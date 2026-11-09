@@ -730,6 +730,7 @@ if (typeof module !== 'undefined') module.exports = { PRESETS, SANC, newMatch, s
 <script>
 // ================= INTERFACCIA =================
 const PWA = !!window.__PWA__;
+const APP_VER = '1.4 · 09/11/2026';
 const $app = document.getElementById('app');
 const H = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const LS = {
@@ -808,7 +809,7 @@ function vHome() {
       <div class="card stack"><div><div class="eyebrow">Archivio squadre</div><p class="small muted" style="margin:4px 0 0">${teams.length ? teams.map(t => H(t.name)).join(', ') : 'Vuoto. Dalla scheda Squadre di una gara puoi salvare un elenco atleti per riusarlo.'}</p></div>
         ${teams.length ? `<div class="row"><button class="btn sm" data-a="teamArchive">Gestisci archivio</button></div>` : ''}</div>
     </div>
-    <p class="small muted" style="margin-top:22px">${PWA ? 'App installata: funziona anche senza rete.' : 'Anteprima. Per stampare il PDF del referto e usarla offline, installa la versione per iPhone/iPad (pacchetto GitHub Pages).'}</p>
+    <p class="small muted" style="margin-top:22px">Versione ${APP_VER}. ${PWA ? 'App installata: funziona anche senza rete.' : 'Anteprima. Per stampare il PDF del referto e usarla offline, installa la versione per iPhone/iPad (pacchetto GitHub Pages).'}</p>
   </main>`;
 }
 
@@ -1587,5 +1588,5 @@ if (!IDX.length && !LS.get('rc_seeded', false)) { seedDemo(); LS.set('rc_seeded'
 render();
 
 </script>
-<script>if('serviceWorker' in navigator){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}</script>
+<script>if('serviceWorker' in navigator){let r0=!!navigator.serviceWorker.controller;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(r0){r0=false;location.reload()}});addEventListener('load',()=>navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{r.update();document.addEventListener('visibilitychange',()=>{if(!document.hidden)r.update()})}).catch(()=>{}))}</script>
 </body></html>
