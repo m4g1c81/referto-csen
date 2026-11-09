@@ -359,6 +359,28 @@ td.ck input { width: 20px; height: 20px; accent-color: var(--accent); }
 .lista .sgs2 { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--paperLine); border-right: 0; min-height: 60px; }
 .pb { height: 16px; }
 
+/* versione per il PDF: tutto nero pieno, linee più marcate, numeri piccoli più leggibili */
+.sheet.pdfmode, .sheet.pdfmode * { color: #000 !important; border-color: #000 !important; }
+.sheet.pdfmode i, .sheet.pdfmode .leg, .sheet.pdfmode small { color: #111 !important; font-weight: 600; }
+.sheet.pdfmode td, .sheet.pdfmode th { border-width: 1.2px; }
+.sheet.pdfmode th { background: #e6e9ee; }
+.ref.pdfmode .vs, .ref.pdfmode .cap, .ref.pdfmode .ccv { background: #d5ddeb; }
+.ref.pdfmode .vs, .ref.pdfmode .vs *, .ref.pdfmode .cap, .ref.pdfmode .ccv, .ref.pdfmode .ts .rn th, .ref.pdfmode .brand .t1 { color: #12306e !important; }
+.ref.pdfmode .brand { border-left-color: #12306e !important; }
+.ref.pdfmode .pg span, .ref.pdfmode .cc span { font-size: 8px; line-height: 9.6px; font-weight: 600; }
+.ref.pdfmode .tbk .pg span { font-size: 6.6px; line-height: 8.2px; }
+.ref.pdfmode .pg span.h, .ref.pdfmode .cc span.h { background: #000; color: #fff !important; }
+.ref.pdfmode .pg span.pe { background: #c4161c; color: #fff !important; }
+.ref.pdfmode .pg span.pre { background: #a9aeb5; }
+.ref.pdfmode .ts td.sv i { color: #8a8f96 !important; font-weight: 500; }
+.ref.pdfmode .ts td.sv.on { font-size: 9.5px; font-weight: 800; }
+.ref.pdfmode .ts .sc td { font-weight: 600; }
+.ref.pdfmode .otext { background: repeating-linear-gradient(transparent 0 15px, #9aa0a6 15px 16px); }
+.ref.pdfmode .blk, .ref.pdfmode .hdbox, .ref.pdfmode .otext, .ref.pdfmode .sgs, .ref.pdfmode .san table, .ref.pdfmode .res table { border-width: 2px; }
+.ref.pdfmode .srb, .ref.pdfmode .cb, .ref.pdfmode .ab { border-width: 1.5px; }
+.ref.pdfmode .ln1 b { border-bottom-color: #000 !important; }
+.sheet.pdfmode .sigsp { border-bottom: 1px solid #000; }
+
 @media (max-width: 900px) {
   .arena { grid-template-columns: 1fr 1fr; }
   .arena > .vcourt { grid-column: 1 / -1; order: -1; }
@@ -791,7 +813,7 @@ if (typeof module !== 'undefined') module.exports = { PRESETS, SANC, newMatch, s
 <script>
 // ================= INTERFACCIA =================
 const PWA = !!window.__PWA__;
-const APP_VER = '2.0 · 09/11/2026';
+const APP_VER = '2.1 · 09/11/2026';
 // app aperta dall'icona su iPhone/iPad: lì Safari ignora window.print()
 const IOS_APP = !!(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)));
 const $app = document.getElementById('app');
@@ -1173,7 +1195,7 @@ function setHead(st, L, R, label, tbMode) {
   const s = M.sets[st.si];
   const sr = t => `<span class="srb">${s.firstServe === t ? 'S' : 'R'}</span>`;
   const libs = t => { const l = M.teams[t].players.filter(p => p.lib).map(p => p.n); return l.length ? ` <small>L ${l.join(', ')}</small>` : ''; };
-  return `<div class="bh"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">SQ. <b>(${L}) ${H(tName(L))}</b>${libs(L)}${sr(L)}</div><div class="pp">PUNTI <b>${st.prog.length || st.over ? st.score[L] : ''}</b></div>
+  return `<div class="bh"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">${sr(L)}SQ. <b>(${L}) ${H(tName(L))}</b>${libs(L)}</div><div class="pp">PUNTI <b>${st.prog.length || st.over ? st.score[L] : ''}</b></div>
     ${tbMode ? '<div class="gap"></div>' : ''}<div class="sq">${sr(R)}SQ. <b>(${R}) ${H(tName(R))}</b>${libs(R)}</div><div class="ti">FINE <b>${fmtTime(st.endTs) || '&nbsp;:&nbsp;'}</b></div><div class="pp">PUNTI <b>${st.prog.length || st.over ? st.score[R] : ''}</b></div></div>`;
 }
 function emptyBlock(n) {
@@ -1204,7 +1226,7 @@ function tbBlock(st, n) {
   const sr = t => `<span class="srb">${s.firstServe === t ? 'S' : 'R'}</span>`;
   const libs = t => { const l = M.teams[t].players.filter(p => p.lib).map(p => p.n); return l.length ? ` <small>L ${l.join(', ')}</small>` : ''; };
   const has = st.prog.length || st.over;
-  const head = `<div class="three hrow"><div class="bh h3"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">SQ. <b>(${L}) ${H(tName(L))}</b>${libs(L)}${sr(L)}</div><div class="pp">PUNTI <b>${has ? atCh : ''}</b></div></div><div></div>
+  const head = `<div class="three hrow"><div class="bh h3"><div class="ti">INIZIO <b>${fmtTime(st.startTs) || '&nbsp;:&nbsp;'}</b></div><div class="sq">${sr(L)}SQ. <b>(${L}) ${H(tName(L))}</b>${libs(L)}</div><div class="pp">PUNTI <b>${has ? atCh : ''}</b></div></div><div></div>
     <div class="bh h3"><div class="sq">${sr(R)}SQ. <b>(${R}) ${H(tName(R))}</b>${libs(R)}</div><div class="ti">FINE <b>${fmtTime(st.endTs) || '&nbsp;:&nbsp;'}</b></div><div class="pp">PUNTI <b>${has ? st.score[R] : ''}</b></div></div><div></div>
     <div class="bh h3"><div class="sq">SQ. <b>(${L}) ${H(tName(L))}</b></div><div class="pp">PUNTI AL CAMBIO <b>${sw > 0 ? atCh : ''}</b></div><div class="pp">PUNTI <b>${sw > 0 ? st.score[L] : ''}</b></div></div></div>`;
   return `<div class="blk tbk"><div class="vs"><span>S<br>E<br>T</span><b>${n}</b></div><div class="bd">${head}
@@ -1600,12 +1622,12 @@ async function makePdf() {
     for (let i = 0; i < sheets.length; i++) {
       const pp = document.getElementById('pp'); if (pp) pp.textContent = `Pagina ${i + 1} di ${sheets.length}…`;
       const el = sheets[i];
-      const canvas = await window.html2canvas(el, { scale: 2, backgroundColor: '#ffffff', logging: false, windowWidth: 1280, onclone: d => { d.querySelectorAll('.sheet').forEach(x => { x.style.boxShadow = 'none'; x.style.borderRadius = '0'; }); } });
-      const img = canvas.toDataURL('image/jpeg', 0.92);
+      const canvas = await window.html2canvas(el, { scale: 3, backgroundColor: '#ffffff', logging: false, windowWidth: 1280, onclone: d => { d.querySelectorAll('.sheet').forEach(x => { x.classList.add('pdfmode'); x.style.boxShadow = 'none'; x.style.borderRadius = '0'; }); } });
+      const img = canvas.toDataURL('image/png');
       const pw = 297, ph = 210, mg = 7; let w = pw - 2 * mg, h = canvas.height * w / canvas.width;
       if (h > ph - 2 * mg) { h = ph - 2 * mg; w = canvas.width * h / canvas.height; }
       if (i) pdf.addPage('a4', 'landscape');
-      pdf.addImage(img, 'JPEG', (pw - w) / 2, mg, w, h);
+      pdf.addImage(img, 'PNG', (pw - w) / 2, mg, w, h, undefined, 'FAST');
     }
     const blob = pdf.output('blob'), file = new File([blob], name, { type: 'application/pdf' }), url = URL.createObjectURL(blob);
     const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));

@@ -1,4 +1,4 @@
-const C='referto-csen-v20';const F=['./','index.html','manifest.json','icon-180.png','icon-192.png','icon-512.png','icon-maskable-512.png','jspdf.umd.min.js','html2canvas.min.js'];
+const C='referto-csen-v21';const F=['./','index.html','manifest.json','icon-180.png','icon-192.png','icon-512.png','icon-maskable-512.png','jspdf.umd.min.js','html2canvas.min.js'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(F)));self.skipWaiting()});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim()});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;const same=new URL(e.request.url).origin===location.origin;e.respondWith(fetch(same?e.request.url:e.request,same?{cache:'no-store',credentials:'same-origin'}:undefined).then(r=>{const cp=r.clone();caches.open(C).then(c=>c.put(e.request,cp));return r}).catch(()=>caches.match(e.request,{ignoreSearch:true}).then(r=>r||caches.match('index.html'))))});
