@@ -791,7 +791,9 @@ if (typeof module !== 'undefined') module.exports = { PRESETS, SANC, newMatch, s
 <script>
 // ================= INTERFACCIA =================
 const PWA = !!window.__PWA__;
-const APP_VER = '1.9 · 09/11/2026';
+const APP_VER = '2.0 · 09/11/2026';
+// app aperta dall'icona su iPhone/iPad: lì Safari ignora window.print()
+const IOS_APP = !!(window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches && /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent)));
 const $app = document.getElementById('app');
 const H = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const LS = {
@@ -1266,7 +1268,7 @@ function vReferto(r) {
       <p class="leg">* K = capitano · L = Libero · F = fuoriquota</p>
       <div class="sgs2">${sg('dir' + t + '_pre', 'Firma del dirigente accompagnatore')}${sg('cap' + t + '_pre', 'Firma del capitano')}</div></div></div>`;
   };
-  return `<div class="stack"><div class="row noprint">${PWA ? '<button class="btn pri" data-a="print">Stampa / salva PDF</button><button class="btn" data-a="exportOne">Esporta gara (file)</button>' : '<span class="small muted">Per il PDF: apri la gara nella versione installata e usa “Stampa / salva PDF”.</span>'}<button class="btn" data-a="copyRes">Copia risultato</button></div>
+  return `<div class="stack"><div class="row noprint">${PWA ? `<button class="btn pri" data-a="pdf">Crea PDF del referto</button>${IOS_APP ? '' : '<button class="btn" data-a="print">Stampa</button>'}<button class="btn" data-a="exportOne">Esporta gara (file)</button>` : '<span class="small muted">Per il PDF: apri la gara nella versione installata e usa “Crea PDF del referto”.</span>'}<button class="btn" data-a="copyRes">Copia risultato</button></div>
     <p class="small muted noprint" style="margin:0">Il referto segue il modello CSEN Roma (pagina orizzontale A4). Le liste gara delle due squadre sono nelle pagine successive.</p>
     ${referto}<div class="pb"></div>${lista('A')}<div class="pb"></div>${lista('B')}</div>`;
 }
@@ -1566,6 +1568,7 @@ const ACT = {
     try { navigator.clipboard.writeText(txt).then(() => toast('Risultato copiato.'), fallback); } catch (e) { fallback(); }
   },
   print() { window.print(); },
+  pdf() { makePdf(); },
   exportOne() { exportData([M], `referto_${(M.info.date || '')}_${(M.teams.A.name || 'A')}-${(M.teams.B.name || 'B')}`.replace(/[^\w\-]+/g, '_')); },
   exportAll() { const all = IDX.map(e => LS.get('rc_m_' + e.id, null)).filter(Boolean); exportData(all, 'referto_csen_backup_' + new Date().toISOString().slice(0, 10), LS.get('rc_teams', [])); },
   importDlg() {
@@ -1579,6 +1582,42 @@ const ACT = {
   },
 };
 
+function loadScript(src) {
+  return new Promise((ok, ko) => {
+    if (document.querySelector(`script[data-lib="${src}"]`)) return ok();
+    const el = document.createElement('script'); el.src = src; el.dataset.lib = src; el.onload = ok; el.onerror = () => ko(new Error('Impossibile caricare ' + src)); document.head.appendChild(el);
+  });
+}
+// PDF generato dall'app: ogni foglio (referto e liste gara) diventa una pagina A4 orizzontale
+async function makePdf() {
+  const name = `Referto_${(M.info.date || '')}_${tName('A')}-${tName('B')}`.replace(/[^\w\-]+/g, '_') + '.pdf';
+  modal(`<h2>Creo il PDF…</h2><p class="muted" id="pp" style="margin:0">Preparo le pagine.</p>`);
+  try {
+    await loadScript('html2canvas.min.js'); await loadScript('jspdf.umd.min.js');
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    const sheets = [...document.querySelectorAll('.sheet')];
+    const pdf = new window.jspdf.jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4', compress: true });
+    for (let i = 0; i < sheets.length; i++) {
+      const pp = document.getElementById('pp'); if (pp) pp.textContent = `Pagina ${i + 1} di ${sheets.length}…`;
+      const el = sheets[i];
+      const canvas = await window.html2canvas(el, { scale: 2, backgroundColor: '#ffffff', logging: false, windowWidth: 1280, onclone: d => { d.querySelectorAll('.sheet').forEach(x => { x.style.boxShadow = 'none'; x.style.borderRadius = '0'; }); } });
+      const img = canvas.toDataURL('image/jpeg', 0.92);
+      const pw = 297, ph = 210, mg = 7; let w = pw - 2 * mg, h = canvas.height * w / canvas.width;
+      if (h > ph - 2 * mg) { h = ph - 2 * mg; w = canvas.width * h / canvas.height; }
+      if (i) pdf.addPage('a4', 'landscape');
+      pdf.addImage(img, 'JPEG', (pw - w) / 2, mg, w, h);
+    }
+    const blob = pdf.output('blob'), file = new File([blob], name, { type: 'application/pdf' }), url = URL.createObjectURL(blob);
+    const canShare = !!(navigator.canShare && navigator.canShare({ files: [file] }));
+    modal(`<h2>PDF pronto</h2><p style="margin:0"><b>${H(name)}</b><br><span class="small muted">${sheets.length} pagine: referto e liste gara delle due squadre.</span></p>
+      <p class="small muted" style="margin:0">${canShare ? 'Con “Condividi” puoi stamparlo (Stampa), salvarlo (Salva su File) o inviarlo via Mail o WhatsApp.' : 'Apri il PDF: da lì puoi salvarlo o stamparlo.'}</p>
+      <div class="foot"><button class="btn" data-a="close">Chiudi</button><a class="btn" href="${url}" target="_blank" rel="noopener" download="${H(name)}">Apri PDF</a>${canShare ? '<button class="btn pri" id="sh">Condividi / Stampa</button>' : ''}</div>`, el => {
+      const b = el.querySelector('#sh'); if (b) b.onclick = () => navigator.share({ files: [file], title: name }).catch(e => { if (e && e.name !== 'AbortError') toast('Condivisione non riuscita: usa “Apri PDF”.'); });
+    });
+  } catch (e) {
+    modal(`<h2>PDF non creato</h2><p>${H(e.message || e)}</p><p class="small muted">Apri l'app con la rete attiva almeno una volta dopo l'aggiornamento, così scarica i componenti per il PDF, poi riprova.</p><div class="foot"><button class="btn pri" data-a="close">Chiudi</button></div>`);
+  }
+}
 function exportData(matches, name, teams) {
   const data = JSON.stringify({ app: 'referto-csen', v: 1, exported: new Date().toISOString(), matches, teams: teams || [] });
   if (PWA) {
